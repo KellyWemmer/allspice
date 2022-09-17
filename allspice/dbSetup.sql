@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS accounts(
   picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8 COMMENT '';
 
+-- NOTE Create RECIPE
 CREATE TABLE IF NOT EXISTS recipe (
   id INT AUTO_INCREMENT PRIMARY KEY,
   picture VARCHAR(255),
@@ -23,7 +24,7 @@ INSERT INTO recipe
 VALUES
 ('https://unsplash.com/photos/ZB8NK8cB4EE', 'Grilled Cheese', 'Its cheesy', 'Sandwiches', '6323975f1dfa4bbd3bd63c22');
 
--- NOTE GETTING Errors, change datatype?
+-- NOTE CREATE INGREDIENT
 CREATE TABLE IF NOT EXISTS ingredient (
   name VARCHAR(255) NOT NULL,
   quantity VARCHAR(255) NOT NULL,
@@ -31,4 +32,42 @@ CREATE TABLE IF NOT EXISTS ingredient (
   
   FOREIGN KEY (recipeId) REFERENCES recipe(id)
 )default charset utf8 COMMENT '';
+
+INSERT INTO ingredient 
+(name, quantity, recipeId)
+VALUES
+("butter", 2, 1);
+
+-- NOTE Create STEP
+CREATE TABLE IF NOT EXISTS step (
+  position INT NOT NULL,
+  body VARCHAR(255) NOT NULL,
+  recipeID INT NOT NULL,
+
+  FOREIGN KEY (recipeId) REFERENCES recipe(id)
+)default charset utf8 COMMENT '';
+
+INSERT INTO step 
+(position, body, recipeId)
+VALUES
+(3, "fry each side of sandwich until bread is crisp and cheese is melted", 1);
+
+-- NOTE create FAVORITE
+CREATE TABLE IF NOT EXISTS favorite (
+  accountId VARCHAR(255) NOT NULL,
+  recipeId INT NOT NULL,
+
+  FOREIGN KEY (recipeId) REFERENCES recipe(id),
+  FOREIGN KEY (accountId) REFERENCES accounts(id)
+)default charset utf8 COMMENT '';
+
+INSERT INTO favorite 
+(accountId, recipeId)
+VALUES
+('6323975f1dfa4bbd3bd63c22', 1)
+
+
+
+
+
 
