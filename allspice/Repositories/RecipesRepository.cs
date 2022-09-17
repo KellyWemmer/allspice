@@ -9,7 +9,7 @@ namespace allspice.Repositories //Repositories - how to access your data
     {    
         private readonly IDbConnection _db; //Represents an open connection to a data source
 
-        public RecipesRepository(IDbConnection db)
+        public RecipesRepository(IDbConnection db)//Constructor
         {
             _db = db;
         }
