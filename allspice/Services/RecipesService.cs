@@ -16,5 +16,16 @@ namespace allspice.Services
         {
             return _recipesRepo.GetRecipes();
         }
+
+        internal Recipe GetRecipeById(int id)
+        {
+           Recipe recipe = _recipesRepo.GetRecipeById(id);
+           return recipe;
+        }
+
+        internal Recipe Create(Recipe newRecipe)
+        {
+            return _recipesRepo.CreateRecipe(newRecipe);
+        }
     }
 }

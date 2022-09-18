@@ -17,5 +17,10 @@ namespace allspice.Services
         {
             return _ingredientsRepo.GetIngredientsByRecipeId(recipeId);
         }
+
+        internal Ingredient Create(Ingredient newIngredient)
+        {
+            return _ingredientsRepo.Create(newIngredient);
+        }
     }
 }

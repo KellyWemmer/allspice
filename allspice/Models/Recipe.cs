@@ -8,6 +8,7 @@ namespace allspice.Models
         public string Subtitle { get; set; } 
         public string Category { get; set; }
         public string CreatorId { get; set; }  
+        public Account Creator { get; set; }//Added to access the creator object
 
     }
 

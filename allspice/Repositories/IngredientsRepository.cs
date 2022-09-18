@@ -25,5 +25,9 @@ namespace allspice.Repositories
             return ingredients;            
 
         }
+
+        internal Ingredient Create(Ingredient newIngredient)
+        {
+        }
     }
 }

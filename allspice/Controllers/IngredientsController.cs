@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using allspice.Models;
 using allspice.Services;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace allspice.Controllers
@@ -12,9 +15,12 @@ namespace allspice.Controllers
     {
         private readonly IngredientsService _ingredientsService;
 
-        public IngredientsController(IngredientsService ingredientsService)
+        private readonly RecipesService _recipesService;
+
+        public IngredientsController(IngredientsService ingredientsService, RecipesService recipesService)
         {
             _ingredientsService = ingredientsService;
+            _recipesService = recipesService;
         }
         [HttpGet("{recipeId}/IngredientsByRecipeId")]
         public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
@@ -23,6 +29,28 @@ namespace allspice.Controllers
             {
                 List<Ingredient> ingredients = _ingredientsService.GetIngredientsByRecipeId(recipeId);
                 return Ok(ingredients);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+
+        public async Task<ActionResult<Ingredient>> Create([FromBody] Ingredient newIngredient)
+        {
+            try 
+            {              
+                Account userInfo =  await HttpContext.GetUserInfoAsync<Account>();
+                Recipe recipe = _recipesService.GetRecipeById(newIngredient.RecipeId);
+                if(recipe.CreatorId == userInfo.Id)
+                {
+                    Ingredient ingredient = _ingredientsService.Create(newIngredient);
+                    return Ok(ingredient);
+                }
+                return BadRequest("You are not authorized to do this");
             }
             catch (Exception e)
             {

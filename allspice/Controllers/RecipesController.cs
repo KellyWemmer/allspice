@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using allspice.Models;
 using allspice.Services;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace allspice.Controllers
@@ -30,6 +33,38 @@ namespace allspice.Controllers
               return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Recipe> GetRecipeById(int id)
+        {
+          try 
+          {
+            Recipe recipe = _recipesService.GetRecipeById(id);
+            return Ok(recipe);
+          }
+          catch (Exception e)
+          {
+            return BadRequest(e.Message);
+          }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult<Recipe>> Create([FromBody]Recipe newRecipe)
+        {
+          try 
+          {
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+            newRecipe.CreatorId = userInfo.Id;
+            Recipe recipe = _recipesService.Create(newRecipe);
+            recipe.Creator = userInfo;
+            return Ok(recipe);
+          }
+          catch (Exception e)
+          {
+            return BadRequest(e.Message);
+          }
+        } 
         
     }
 }
