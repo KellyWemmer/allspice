@@ -20,6 +20,7 @@ namespace allspice.Controllers
         public StepsController(StepsService stepsService, RecipesService recipesService)
         {
             _stepsService = stepsService;
+            _recipesService = recipesService;
         }
         [HttpGet("{recipeId}/StepsByRecipeId")]
 

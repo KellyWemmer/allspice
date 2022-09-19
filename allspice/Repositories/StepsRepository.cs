@@ -35,7 +35,7 @@ namespace allspice.Repositories
             SELECT LAST_INSERT_ID();
             ";
             int id = _db.ExecuteScalar<int>(sql, newStep);
-            newStep.RecipeId = id;
+            newStep.Id = id;
             return newStep;
         }
     }

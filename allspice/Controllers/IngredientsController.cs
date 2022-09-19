@@ -73,18 +73,19 @@ namespace allspice.Controllers
             }
         }
 
-        // [HttpDelete("{id}")]
-        // public ActionResult<string> Delete(int id)
-        // {
-        //     try 
-        //     {
-        //         return Ok(_ingredientsService.Delete(id));
-        //     }
-        //     catch (Exception e)
-        //     {
-        //       return BadRequest(e.Message);
-        //     }
-        // }
+        [HttpDelete("{id}")]
+        [Authorize]
+        public ActionResult<string> Delete(int id)
+        {
+            try 
+            {
+                return Ok(_ingredientsService.Delete(id));
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
     }
 
     

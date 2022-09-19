@@ -52,5 +52,12 @@ namespace allspice.Repositories
             return newIngredient;
         }
 
+        internal void Delete(int id)
+        {
+            string sql = @"
+                DELETE FROM ingredient WHERE id=@id;
+            ";
+            _db.Execute(sql, new {id});
+        }
     }
 }
