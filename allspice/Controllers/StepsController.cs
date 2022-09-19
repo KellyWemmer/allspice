@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using allspice.Models;
 using allspice.Services;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace allspice.Controllers
@@ -12,7 +15,9 @@ namespace allspice.Controllers
     {
         private readonly StepsService _stepsService;
 
-        public StepsController(StepsService stepsService)
+        private readonly RecipesService _recipesService;
+
+        public StepsController(StepsService stepsService, RecipesService recipesService)
         {
             _stepsService = stepsService;
         }
@@ -24,6 +29,29 @@ namespace allspice.Controllers
             {
                 List<Step> steps = _stepsService.GetStepsByRecipeId(recipeId);
                 return Ok(steps);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        
+        public async Task<ActionResult<Step>> Create([FromBody] Step newStep)
+        {
+            try 
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                Recipe recipe = _recipesService.GetRecipeById(newStep.RecipeId);
+                if(recipe.CreatorId == userInfo.Id)
+                {
+                    Step step = _stepsService.Create(newStep);
+                    return Ok(step);
+                }
+                return BadRequest("You are not authorized to do this");
+
             }
             catch (Exception e)
             {

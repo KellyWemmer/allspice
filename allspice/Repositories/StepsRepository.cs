@@ -24,5 +24,19 @@ namespace allspice.Repositories
            List<Step> steps = _db.Query<Step>(sql, new {recipeId}).AsList();
            return steps;
         }
+
+        internal Step Create(Step newStep)
+        {
+            string sql = @"
+            INSERT INTO step
+            (position, body, recipeId)
+            VALUES
+            (@position, @body, @recipeId);
+            SELECT LAST_INSERT_ID();
+            ";
+            int id = _db.ExecuteScalar<int>(sql, newStep);
+            newStep.RecipeId = id;
+            return newStep;
+        }
     }
 }

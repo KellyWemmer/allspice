@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using allspice.Models;
 using Dapper;
 
@@ -25,9 +26,31 @@ namespace allspice.Repositories
             return ingredients;            
 
         }
+        internal Ingredient GetIngredientById(int id)
+        {
+            string sql = @"
+            SELECT
+                i.*
+                FROM ingredient i
+                WHERE i.Id = @id;
+            ";
+            Ingredient ingredient = _db.Query<Ingredient>(sql, new {id}).FirstOrDefault();
+            return ingredient;
+        }
 
         internal Ingredient Create(Ingredient newIngredient)
         {
+            string sql = @"
+            INSERT INTO ingredient
+            (name, quantity, recipeId)
+            VALUES
+            (@name, @quantity, @recipeId);
+            SELECT LAST_INSERT_ID();
+            ";
+            int id = _db.ExecuteScalar<int>(sql, newIngredient);
+            newIngredient.Id = id;
+            return newIngredient;
         }
+
     }
 }

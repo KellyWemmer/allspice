@@ -16,5 +16,10 @@ namespace allspice.Services
         {
             return _stepsRepo.GetStepsByRecipeId(recipeId);
         }
+
+        internal Step Create(Step newStep)
+        {
+            return _stepsRepo.Create(newStep);
+        }
     }
 }

@@ -22,6 +22,21 @@ namespace allspice.Controllers
             _ingredientsService = ingredientsService;
             _recipesService = recipesService;
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Ingredient> GetIngredientById(int id)
+        {
+            try 
+            {
+                return Ok(_ingredientsService.GetIngredientById(id));
+            }
+            
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
         [HttpGet("{recipeId}/IngredientsByRecipeId")]
         public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
         {
@@ -57,6 +72,19 @@ namespace allspice.Controllers
               return BadRequest(e.Message);
             }
         }
+
+        // [HttpDelete("{id}")]
+        // public ActionResult<string> Delete(int id)
+        // {
+        //     try 
+        //     {
+        //         return Ok(_ingredientsService.Delete(id));
+        //     }
+        //     catch (Exception e)
+        //     {
+        //       return BadRequest(e.Message);
+        //     }
+        // }
     }
 
     
