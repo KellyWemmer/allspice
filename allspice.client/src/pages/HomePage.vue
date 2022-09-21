@@ -1,31 +1,64 @@
 <template>
   <div class="container-fluid">    
     <div class="row">
-      <div class="col-12 text-center">
+      <div class="col-12 g-0 text-center">
         <div class="title" id="banner-image">
-          <div class="text-dark text-shadow">
-            <h3 class="pt-4">All-Spice</h3>
+          <div class="text-light text-shadow">
+            <h3 class="pt-5">All-Spice</h3>
             <h5>Cherish Your Family</h5>
             <h5>And Their Cooking</h5>
           </div>
         </div> 
       </div>        
-    </div>    
+    </div> 
+    <div class="row">
+      <div class="col-md-2 p-4" v-for="r in recipes" :key="r.id">
+        <RecipeCard :recipe="r" />
+      </div>
+    </div>   
   </div>
 </template>
 <script>
+
+import { computed } from '@vue/reactivity';
+import { onMounted } from 'vue';
+import { AppState } from '../AppState';
+import RecipeCard from '../components/RecipeCard.vue';
+import {recipesService} from '../services/RecipesService';
+import Pop from '../utils/Pop';
+
+
 export default {
+  name: "Home",
+
   setup() {
-    return {};
+    async function getRecipes() {
+      try {
+        await recipesService.getRecipes();      
+      } catch (error) {      
+        Pop.toast(error.message, 'error')
+      } 
+    }    
+    
+    onMounted(() => {
+      getRecipes();
+    })
+    
+    return {
+      recipes: computed(() => AppState.recipes)
+    };
   },
+  components: { RecipeCard }
 };
 </script>
 <style>
 #banner-image{
   width: 100%;
-  background-image: url("https://images.unsplash.com/photo-1470549813517-2fa741d25c92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-image: url("https://images.unsplash.com/photo-1597528662465-55ece5734101?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80");
   height: 250px;
   background-position: center;
   background-size: cover;
+  padding: 0px;
+  
 }
 </style>
