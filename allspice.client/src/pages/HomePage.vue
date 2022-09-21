@@ -1,36 +1,31 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo" class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
+  <div class="container-fluid">    
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="title" id="banner-image">
+          <div class="text-dark text-shadow">
+            <h3 class="pt-4">All-Spice</h3>
+            <h5>Cherish Your Family</h5>
+            <h5>And Their Cooking</h5>
+          </div>
+        </div> 
+      </div>        
+    </div>    
   </div>
 </template>
-
 <script>
 export default {
-  name: 'Home'
-}
+  setup() {
+    return {};
+  },
+};
 </script>
-
-<style scoped lang="scss">
-.home{
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-  .home-card{
-    width: 50vw;
-    > img{
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+<style>
+#banner-image{
+  width: 100%;
+  background-image: url("https://images.unsplash.com/photo-1470549813517-2fa741d25c92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  height: 250px;
+  background-position: center;
+  background-size: cover;
 }
 </style>
