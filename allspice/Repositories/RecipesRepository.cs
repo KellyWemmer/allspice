@@ -32,6 +32,7 @@ namespace allspice.Repositories //Repositories - how to access your data
             Recipe recipe = _db.Query<Recipe>(sql, new { id}).FirstOrDefault();//Returns as single object instead of a list
             return recipe;
         }
+
         internal Recipe CreateRecipe(Recipe newRecipe)
         {
             string sql = @"
@@ -44,6 +45,14 @@ namespace allspice.Repositories //Repositories - how to access your data
             int id = _db.ExecuteScalar<int>(sql, newRecipe);
             newRecipe.Id = id;
             return newRecipe;
+        }
+
+        internal void Delete(int id)
+        {
+            string sql = @"
+            DELETE FROM recipe WHERE id=@id;
+            ";
+            _db.Execute(sql, new {id});
         }
        
     }

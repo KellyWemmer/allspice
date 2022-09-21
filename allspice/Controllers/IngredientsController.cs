@@ -73,6 +73,20 @@ namespace allspice.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        [Authorize]
+        public ActionResult<Ingredient> Update(int id, [FromBody] Ingredient ingredientUpdate){
+            try 
+            {
+                ingredientUpdate.Id = id;
+                return Ok(_ingredientsService.Update(ingredientUpdate));
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         [Authorize]
         public ActionResult<string> Delete(int id)

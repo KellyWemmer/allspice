@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS ingredient (
   quantity VARCHAR(255) NOT NULL,
   recipeId INT NOT NULL,
   
-  FOREIGN KEY (recipeId) REFERENCES recipe(id)
+  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE;
 )default charset utf8 COMMENT '';
 
 INSERT INTO ingredient 
@@ -46,13 +46,13 @@ CREATE TABLE IF NOT EXISTS step (
   body VARCHAR(255) NOT NULL,
   recipeID INT NOT NULL,
 
-  FOREIGN KEY (recipeId) REFERENCES recipe(id)
+  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE;
 )default charset utf8 COMMENT '';
 
 INSERT INTO step 
 (position, body, recipeId)
 VALUES
-(3, "fry each side of sandwich until bread is crisp and cheese is melted", 1);
+(3, "fry each side until crisp and cheese is melted", 1);
 
 -- NOTE create FAVORITE
 CREATE TABLE IF NOT EXISTS favorite (

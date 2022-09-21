@@ -27,5 +27,14 @@ namespace allspice.Services
         {
             return _recipesRepo.CreateRecipe(newRecipe);
         }
+
+        internal string Delete(int id)
+        {
+            Recipe recipe = GetRecipeById(id);
+            {
+                _recipesRepo.Delete(id);
+                return $"The recipe {recipe.Title} has been deleted";
+            }
+        }
     }
 }

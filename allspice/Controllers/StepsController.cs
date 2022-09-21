@@ -22,6 +22,21 @@ namespace allspice.Controllers
             _stepsService = stepsService;
             _recipesService = recipesService;
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Step> GetStepById(int id)
+        {
+            try 
+            {
+                return Ok(_stepsService.GetStepById(id));
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
+
         [HttpGet("{recipeId}/StepsByRecipeId")]
 
         public ActionResult<List<Step>>GetStepsByRecipeId(int recipeId)
@@ -53,6 +68,36 @@ namespace allspice.Controllers
                 }
                 return BadRequest("You are not authorized to do this");
 
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        [Authorize]
+
+        public ActionResult<Step> Update(int id, [FromBody] Step stepUpdate){
+            try 
+            {
+                stepUpdate.Id = id;
+                return Ok(_stepsService.Update(stepUpdate));
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+
+        public ActionResult<string> Delete(int id)
+        {
+            try 
+            {
+                return Ok(_stepsService.Delete(id));
             }
             catch (Exception e)
             {

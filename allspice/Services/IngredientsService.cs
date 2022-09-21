@@ -13,7 +13,7 @@ namespace allspice.Services
         {
             _ingredientsRepo = ingredientsRepo;
         } 
-        internal object GetIngredientById(int id)
+        internal Ingredient GetIngredientById(int id)
         {
             Ingredient ingredient = _ingredientsRepo.GetIngredientById(id);
             if(ingredient == null)
@@ -33,12 +33,20 @@ namespace allspice.Services
             return _ingredientsRepo.Create(newIngredient);
         }
 
+        internal Ingredient Update(Ingredient ingredientUpdate)
+        {
+            Ingredient original = GetIngredientById(ingredientUpdate.Id);
+            original.Name = ingredientUpdate.Name ?? original.Name; 
+            original.Quantity = ingredientUpdate.Quantity ?? original.Quantity;
+
+            return _ingredientsRepo.Update(original);
+        }
         internal string Delete(int id)
         {
             Ingredient ingredient = (Ingredient)GetIngredientById(id);
             {
                 _ingredientsRepo.Delete(id);
-                return $"Ingredient {ingredient.Name} has been deleted.";
+                return $"The ingredient {ingredient.Name} has been deleted.";
             }
         }
 

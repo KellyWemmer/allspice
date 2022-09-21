@@ -14,6 +14,17 @@ namespace allspice.Repositories
         {
             _db = db;
         }
+        internal Ingredient GetIngredientById(int id)
+        {
+            string sql = @"
+            SELECT
+                i.*
+                FROM ingredient i
+                WHERE i.Id = @id;
+            ";
+            Ingredient ingredient = _db.Query<Ingredient>(sql, new {id}).FirstOrDefault();
+            return ingredient;
+        }
         internal List<Ingredient> GetIngredientsByRecipeId(int recipeId)//Banana word
         {
             string sql = @"
@@ -25,17 +36,6 @@ namespace allspice.Repositories
             List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new {recipeId}).AsList();
             return ingredients;            
 
-        }
-        internal Ingredient GetIngredientById(int id)
-        {
-            string sql = @"
-            SELECT
-                i.*
-                FROM ingredient i
-                WHERE i.Id = @id;
-            ";
-            Ingredient ingredient = _db.Query<Ingredient>(sql, new {id}).FirstOrDefault();
-            return ingredient;
         }
 
         internal Ingredient Create(Ingredient newIngredient)
@@ -50,6 +50,23 @@ namespace allspice.Repositories
             int id = _db.ExecuteScalar<int>(sql, newIngredient);
             newIngredient.Id = id;
             return newIngredient;
+        }
+
+        internal Ingredient Update(Ingredient original)
+        {
+            string sql = @"
+                UPDATE ingredient SET
+                    name = @name,
+                    quantity = @quantity,
+                    recipeId = @recipeId
+                WHERE id = @id;
+            ";
+            int rowsAffected = _db.Execute(sql, original);
+            if(rowsAffected == 0)
+            {
+                throw new System.Exception("Unable to edit ingredient.");
+            } 
+            return original;          
         }
 
         internal void Delete(int id)
