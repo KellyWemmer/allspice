@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS favorite (
   accountId VARCHAR(255) NOT NULL,
   recipeId INT NOT NULL,
 
-  FOREIGN KEY (recipeId) REFERENCES recipe(id),
-  FOREIGN KEY (accountId) REFERENCES accounts(id)
+  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE,
+  FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE
 )default charset utf8 COMMENT '';
 
 INSERT INTO favorite 
