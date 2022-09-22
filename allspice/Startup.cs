@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using MySqlConnector;
 using allspice.Repositories;
 using allspice.Services;
+using allspice.Controllers;
 
 namespace allspice
 {
@@ -41,6 +42,8 @@ namespace allspice
             services.AddTransient<IngredientsService>();
             services.AddTransient<StepsRepository>();
             services.AddTransient<StepsService>();
+            services.AddTransient<FavoritesRepository>();
+            services.AddTransient<FavoritesService>();
         }
 
         private void ConfigureCors(IServiceCollection services)

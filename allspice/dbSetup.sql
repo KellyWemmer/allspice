@@ -56,6 +56,7 @@ VALUES
 
 -- NOTE create FAVORITE
 CREATE TABLE IF NOT EXISTS favorite (
+  id INT AUTO_INCREMENT PRIMARY KEY,
   accountId VARCHAR(255) NOT NULL,
   recipeId INT NOT NULL,
 
@@ -66,7 +67,9 @@ CREATE TABLE IF NOT EXISTS favorite (
 INSERT INTO favorite 
 (accountId, recipeId)
 VALUES
-('6323975f1dfa4bbd3bd63c22', 1)
+('6323975f1dfa4bbd3bd63c22', 7)
+
+
 
 
 
