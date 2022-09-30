@@ -6,6 +6,7 @@
             <p class="card-text">{{recipe.subtitle}}</p>    
         </div>
     </div>
+<RecipeDetailsModal/>
 </template>
 
 <script>
@@ -13,22 +14,25 @@ import { Modal } from 'bootstrap';
 import { recipesService } from '../services/RecipesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
+import RecipeDetailsModal from './RecipeDetailsModal.vue';
 
 export default {
-    props: { recipe: {type: Object, required: true}},
+    props: { recipe: { type: Object, required: true } },
     setup(props) {
         return {
-            async setActiveRecipeModal() {
+            async setActiveRecipeModal() {                
                 try {
-                  Modal.getOrCreateInstance(document.getElementById("recipe-modal")).toggle();
-                  await recipesService.getRecipeById
-                } catch (error) {
-                  logger.error(error)
-                  Pop.toast(error.message, 'error')
+                    Modal.getOrCreateInstance(document.getElementById("recipe-modal")).toggle();
+                    await recipesService.getRecipeById(props.recipe.id);
+                }
+                catch (error) {
+                    logger.error("Set active recipe", error);
+                    Pop.toast(error.message, "error");
                 }
             }
         };
     },
+    components: { RecipeDetailsModal }
 };
 </script>
 
