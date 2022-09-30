@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS recipe (
 INSERT INTO recipe
 (picture, title, subtitle, category, creatorId)
 VALUES
-('https://unsplash.com/photos/ZB8NK8cB4EE', 'Grilled Cheese', 'Its cheesy', 'Sandwiches', '6323975f1dfa4bbd3bd63c22');
+('https://images.unsplash.com/photo-1528736235302-52922df5c122?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1254&q=80', 'Grilled Cheese', "It's Cheesy!", 'Sandwiches', '6323975f1dfa4bbd3bd63c22');
 
 -- NOTE CREATE INGREDIENT
 CREATE TABLE IF NOT EXISTS ingredient (
@@ -31,13 +31,13 @@ CREATE TABLE IF NOT EXISTS ingredient (
   quantity VARCHAR(255) NOT NULL,
   recipeId INT NOT NULL,
   
-  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE;
+  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE
 )default charset utf8 COMMENT '';
 
 INSERT INTO ingredient 
 (name, quantity, recipeId)
 VALUES
-("butter", 2, 1);
+("bread", "2 slices", 10);
 
 -- NOTE Create STEP
 CREATE TABLE IF NOT EXISTS step (
@@ -46,13 +46,13 @@ CREATE TABLE IF NOT EXISTS step (
   body VARCHAR(255) NOT NULL,
   recipeID INT NOT NULL,
 
-  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE;
+  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE
 )default charset utf8 COMMENT '';
 
 INSERT INTO step 
 (position, body, recipeId)
 VALUES
-(3, "fry each side until crisp and cheese is melted", 1);
+(1, "melt butter in pan on medium heat", 10);
 
 -- NOTE create FAVORITE
 CREATE TABLE IF NOT EXISTS favorite (
@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS favorite (
   accountId VARCHAR(255) NOT NULL,
   recipeId INT NOT NULL,
 
-  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE,
-  FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE
+  FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+  FOREIGN KEY (recipeId) REFERENCES recipe(id) ON DELETE CASCADE
 )default charset utf8 COMMENT '';
 
 INSERT INTO favorite 
