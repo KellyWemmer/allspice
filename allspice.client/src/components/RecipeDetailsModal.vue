@@ -1,8 +1,8 @@
 <template>
     <div class="modal" id="recipe-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-dark text-light">
             <h5 class="modal-title">{{recipe?.title}}</h5>
             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -14,10 +14,14 @@
                 <img class="img-fluid recipe-img" :src="recipe?.picture" alt="">
             </div> 
             <div class="col-4">
-                <p>Recipe Steps Card</p>
+                <div class="recipe-steps">
+                    <RecipeStepsCard/>
+                </div>
             </div>
             <div class="col-4">
-                <p>Recipe Ingredients Card</p>
+                <div class="recipe-steps">
+                    <RecipeIngredientsCard/>
+                </div>
             </div>
             </div>        
         </div>        
@@ -28,13 +32,15 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState';
+import RecipeStepsCard from './RecipeStepsCard.vue';
 
 export default {
-setup() {
+    setup() {
         return {
-            recipe: computed(()=>AppState.activeRecipe)
+            recipe: computed(() => AppState.activeRecipe)
         };
     },
+    components: { RecipeStepsCard }
 };
 </script>
 <style>

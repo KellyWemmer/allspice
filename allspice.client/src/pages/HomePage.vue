@@ -4,9 +4,9 @@
       <div class="col-12 g-0 text-center">
         <div class="title" id="banner-image">
           <div class="text-light text-shadow">
-            <h3 class="pt-5">All-Spice</h3>
-            <h5>Cherish Your Family</h5>
-            <h5>And Their Cooking</h5>
+            <h2 class="pt-5">All-Spice</h2>
+            <h4>Cherish Your Family</h4>
+            <h4>And Their Cooking</h4>
           </div>
         </div> 
       </div>        
@@ -51,7 +51,7 @@ export default {
   components: { RecipeCard }
 };
 </script>
-<style>
+<style scoped lang="scss">
 #banner-image{
   width: 100%;
   background-image: url("https://images.unsplash.com/photo-1597528662465-55ece5734101?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80");
@@ -59,6 +59,12 @@ export default {
   background-position: center;
   background-size: cover;
   padding: 0px;
+
+  .text-shadow{
+    text-shadow: 3px 2px #040404;
+  }
+
+
   
 }
 </style>
