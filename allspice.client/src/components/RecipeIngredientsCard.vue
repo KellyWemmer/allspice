@@ -1,4 +1,5 @@
 <template>
+    
     <div class="card" style="width: 15rem;">
     <div class="bg-dark card-header">
         Recipe Ingredients       
@@ -13,15 +14,20 @@
 </div>    
 </template>
 <script>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+import { AppState } from '../AppState';
 import { recipesService } from '../services/RecipesService';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 export default {
-    props: { recipe: {type: Object, required: true}},
+   
     setup(props) {
         async function getRecipeById() {
             try {
-                await recipesService.getRecipeById(props.recipe.id)
+                if(AppState.activeRecipe){
+                    await recipesService.getRecipeById(props.recipe?.id)
+                }
             } catch (error) {
               logger.error(error)
               Pop.toast(error.message, 'error')
@@ -32,7 +38,9 @@ export default {
             getRecipeById();
         })
 
-        return {};
+        return {
+            recipe: computed(()=>AppState.activeRecipe)
+        };
     },
 };
 </script>

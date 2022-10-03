@@ -4,30 +4,38 @@
         Recipe Steps       
     </div>
     <ol class="list-group list-group-flush">
-        <li v-for="s in activeSteps" :key="s.id" class="list-group-item">{{s.position}}{{s.body}}</li>
+        <li v-for="s in steps" :key="s.id" :value="s.id" class="list-group-item">{{s.position}}{{s.body}}</li>
     </ol>
 </div>    
 </template>
 <script>
+import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
+import { AppState } from '../AppState';
 import { recipesService } from '../services/RecipesService';
+import { stepsService } from '../services/StepsService';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 export default {
-    props: { recipe: {type: Object, required: true}},
     setup(props) {
-        //create separate function to return activeSteps to AppState
         async function getRecipeById() {
             try {
-                await recipesService.getRecipeById(props.recipe.id)
+                if(AppState.activeRecipe){
+                    await recipesService.getRecipeById(props.recipe?.id)
+                }
             } catch (error) {
-              logger.error(error)
-              Pop.toast(error.message, 'error')
+                logger.error(error)
+                Pop.toast(error.message, 'error')
             }
         }
-
-        async function getStepsByRecipeId() {
+        
+        async function getStepsByRecipeId(id) {
                 try {
-                    await StepsService.getStepsByRecipeId(id)
+                    if(AppState.activeRecipe){
+
+                        await stepsService.getStepsByRecipeId(id)
+                    }
                 } catch (error) {
                   logger.error(error)
                   Pop.toast(error.message, 'error')
@@ -36,11 +44,13 @@ export default {
 
         onMounted(()=> {
             getRecipeById();
+            getStepsByRecipeId();
         })
 
         return {
-            activeSteps: computed(()=> AppState.activeSteps)
-            
+            steps: computed(()=> AppState.steps),
+            recipe: computed(()=>AppState.activeRecipe)
+
         };
     },
 };
