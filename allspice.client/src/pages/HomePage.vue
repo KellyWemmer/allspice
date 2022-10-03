@@ -12,7 +12,7 @@
       </div>        
     </div> 
     <div class="row">
-      <div class="col-md-2 p-4" v-for="r in recipes" :key="r.id">
+      <div class="col-md-3 pt-3" v-for="r in recipes" :key="r.id">
         <RecipeCard :recipe="r" />
       </div>
     </div>   
