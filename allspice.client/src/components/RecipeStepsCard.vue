@@ -4,9 +4,9 @@
         Recipe Steps       
     </div>
     <ol class="list-group list-group-flush">
-        <li v-for="s in steps" :key="s.id" :value="s.id" class="list-group-item">{{s.position}}{{s.body}}</li>
+        <li v-for="s in steps" :key="s.id" class="list-group-item">{{s.body}}</li>
     </ol>
-</div>    
+    </div>    
 </template>
 <script>
 import { computed } from '@vue/reactivity';
@@ -29,7 +29,7 @@ export default {
                 Pop.toast(error.message, 'error')
             }
         }
-        
+        //pass in recipe id        
         async function getStepsByRecipeId(id) {
                 try {
                     if(AppState.activeRecipe){
@@ -41,7 +41,7 @@ export default {
                   Pop.toast(error.message, 'error')
                 }
             }
-
+            //Need to pass recipe into the onmounted
         onMounted(()=> {
             getRecipeById();
             getStepsByRecipeId();
@@ -50,7 +50,6 @@ export default {
         return {
             steps: computed(()=> AppState.steps),
             recipe: computed(()=>AppState.activeRecipe)
-
         };
     },
 };
