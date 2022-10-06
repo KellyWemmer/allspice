@@ -17,7 +17,7 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 
 export default {
-    //props receive information from 
+    //props receive information from recipe Object
     props:{
         recipe:{
             type: Object,
