@@ -18,6 +18,12 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 
 export default {
+    props:{
+        recipe:{
+            type: Object,
+            required:true
+        }
+    },
     setup(props) {
         async function getRecipeById() {
             try {
@@ -30,18 +36,18 @@ export default {
             }
         }
         //pass in recipe id        
-        async function getStepsByRecipeId(id) {
+        async function getStepsByRecipeId() {
                 try {
                     if(AppState.activeRecipe){
 
-                        await stepsService.getStepsByRecipeId(id)
+                        await stepsService.getStepsByRecipeId(props.recipe?.id)
                     }
                 } catch (error) {
                   logger.error(error)
                   Pop.toast(error.message, 'error')
                 }
             }
-            //Need to pass recipe into the onmounted
+            
         onMounted(()=> {
             getRecipeById();
             getStepsByRecipeId();

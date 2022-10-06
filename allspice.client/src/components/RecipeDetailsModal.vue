@@ -15,7 +15,7 @@
             </div> 
             <div class="col-4">
                 <div class="recipe-steps">
-                    <RecipeStepsCard/>
+                    <RecipeStepsCard :recipe="recipe"/>
                 </div>
             </div>
             <div class="col-4">
