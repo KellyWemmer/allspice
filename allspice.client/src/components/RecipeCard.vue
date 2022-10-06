@@ -13,6 +13,7 @@
 import { Modal } from 'bootstrap';
 import { recipesService } from '../services/RecipesService';
 import { stepsService } from '../services/StepsService';
+import { ingredientsService} from '../services/IngredientsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import RecipeDetailsModal from './RecipeDetailsModal.vue';
@@ -25,8 +26,8 @@ export default {
                 try {
                     Modal.getOrCreateInstance(document.getElementById("recipe-modal")).toggle();
                     await recipesService.getRecipeById(props.recipe.id);
-                    await stepsService.getStepsByRecipeId()
-                    // await ingredients
+                    await stepsService.getStepsByRecipeId(props.recipe.id);
+                    await ingredientsService.getIngredientsByRecipeId(props.recipe.id);
                 }
                 catch (error) {
                     logger.error("Set active recipe", error);

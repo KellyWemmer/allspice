@@ -4,7 +4,7 @@
         Recipe Steps       
     </div>
     <ol class="list-group list-group-flush">
-        <li v-for="s in steps" :key="s.id" class="list-group-item">{{s.body}}</li>
+        <li v-for="s in steps" :key="s.id" class="list-group-item">{{s.position}}. {{s.body}}</li>
     </ol>
     </div>    
 </template>
@@ -18,6 +18,7 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 
 export default {
+    //Steps card is receiving information on active recipe from modal
     props:{
         recipe:{
             type: Object,

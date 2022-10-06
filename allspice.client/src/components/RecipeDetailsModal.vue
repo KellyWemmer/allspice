@@ -15,12 +15,13 @@
             </div> 
             <div class="col-4">
                 <div class="recipe-steps">
-                    <RecipeStepsCard :recipe="recipe"/>
+                    <!-- sends recipe information to the card via the prop ":recipe" -->
+                    <RecipeStepsCard :recipe="recipe"/> 
                 </div>
             </div>
             <div class="col-4">
                 <div class="recipe-steps">
-                    <RecipeIngredientsCard/>
+                    <RecipeIngredientsCard :recipe="recipe"/>
                 </div>
             </div>
             </div>        
@@ -35,6 +36,7 @@ import { AppState } from '../AppState';
 import RecipeStepsCard from './RecipeStepsCard.vue';
 
 export default {
+    //Modal sends information to cards
     setup() {
         return {
             recipe: computed(() => AppState.activeRecipe)

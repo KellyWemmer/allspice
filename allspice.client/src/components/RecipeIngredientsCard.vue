@@ -5,11 +5,7 @@
         Recipe Ingredients       
     </div>
     <ol class="list-group list-group-flush">
-        <li class="list-group-item">Ingredient</li>
-        <li class="list-group-item">Ingredient</li>
-        <li class="list-group-item">Ingredient</li>
-        <li class="list-group-item">Ingredient</li>
-        <li class="list-group-item">Ingredient</li>
+        <li v-for="i in ingredients" :key="i.id" class="list-group-item">{{i.quantity}} {{i.name}}</li>
     </ol>
 </div>    
 </template>
@@ -21,7 +17,13 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 
 export default {
-   
+    //props receive information from 
+    props:{
+        recipe:{
+            type: Object,
+            required:true
+        }
+    },
     setup(props) {
         async function getRecipeById() {
             try {
@@ -34,12 +36,26 @@ export default {
             }
         }
 
+        async function getIngredientsByRecipeId() {
+                try {
+                    if(AppState.activeRecipe){
+
+                        await ingredientsService.getIngredientsByRecipeId(props.recipe?.id)
+                    }
+                } catch (error) {
+                  logger.error(error)
+                  Pop.toast(error.message, 'error')
+                }
+            }
+
         onMounted(()=> {
             getRecipeById();
+            getIngredientsByRecipeId();
         })
 
         return {
-            recipe: computed(()=>AppState.activeRecipe)
+            recipe: computed(()=>AppState.activeRecipe),
+            ingredients: computed(()=>AppState.ingredients)
         };
     },
 };
