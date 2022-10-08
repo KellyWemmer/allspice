@@ -13,7 +13,12 @@
     </div> 
     <div class="row">
       <div class="col-md-3 pt-3" v-for="r in recipes" :key="r.id">
-        <RecipeCard :recipe="r" />
+        <RecipeCard :recipe="r" />        
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+          <a href="#" title="add-recipe" class=""><i class="add-button mdi mdi-plus-circle"></i></a>   
+        </div>
       </div>
     </div>   
   </div>
@@ -62,9 +67,10 @@ export default {
 
   .text-shadow{
     text-shadow: 3px 2px #040404;
-  }
+  }  
+}
 
-
-  
+.add-button {
+  font-size: 80px;
 }
 </style>

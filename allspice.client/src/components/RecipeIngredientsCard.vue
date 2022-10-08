@@ -17,7 +17,7 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 
 export default {
-    //props receive information from recipe Object
+    //Ingredients card is receiving information on active recipe from modal
     props:{
         recipe:{
             type: Object,
