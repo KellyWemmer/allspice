@@ -12,7 +12,6 @@ namespace allspice.Controllers
     {
         [HttpGet]
         public ActionResult<List<string>> GetCategories()
-
         {
             List<string> list = Enum.GetValues(typeof(CategoryEnum))
             .Cast<CategoryEnum>()

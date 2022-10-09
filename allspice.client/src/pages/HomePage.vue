@@ -16,7 +16,7 @@
         <RecipeCard :recipe="r" />        
       </div>
       <div class="row">
-        <div class="col-12 d-flex justify-content-end">
+        <div class="col-12 d-flex justify-content-end" @click="addNewRecipe()">
           <a href="#" title="add-recipe" class=""><i class="add-button mdi mdi-plus-circle"></i></a>   
         </div>
       </div>
@@ -26,6 +26,7 @@
 <script>
 
 import { computed } from '@vue/reactivity';
+import { Modal } from 'bootstrap';
 import { onMounted } from 'vue';
 import { AppState } from '../AppState';
 import RecipeCard from '../components/RecipeCard.vue';
@@ -43,14 +44,24 @@ export default {
       } catch (error) {      
         Pop.toast(error.message, 'error')
       } 
-    }    
+    }      
     
     onMounted(() => {
       getRecipes();
     })
     
     return {
-      recipes: computed(() => AppState.recipes)
+      recipes: computed(() => AppState.recipes),
+
+      async addNewRecipe() {
+        try {
+          Modal.getOrCreateInstance(document.getElementById("newRecipeModal")).toggle();
+          await recipesService.createRecipe()
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      }
     };
   },
   components: { RecipeCard }
@@ -69,7 +80,6 @@ export default {
     text-shadow: 3px 2px #040404;
   }  
 }
-
 .add-button {
   font-size: 80px;
 }
