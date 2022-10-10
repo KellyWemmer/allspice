@@ -16,9 +16,10 @@
         <RecipeCard :recipe="r" />        
       </div>
       <div class="row">
-        <div class="col-12 d-flex justify-content-end" @click="addNewRecipe()">
-          <a href="#" title="add-recipe" class=""><i class="add-button mdi mdi-plus-circle"></i></a>   
+        <div class="col-12 d-flex justify-content-end">
+          <a href="#" title="add-recipe" class="" data-bs-target="#new-recipe-modal" data-bs-toggle="modal"><i class="add-button mdi mdi-plus-circle"></i></a>   
         </div>
+        <NewRecipeModal/>
       </div>
     </div>   
   </div>
@@ -31,7 +32,9 @@ import { onMounted } from 'vue';
 import { AppState } from '../AppState';
 import RecipeCard from '../components/RecipeCard.vue';
 import {recipesService} from '../services/RecipesService';
+import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
+import NewRecipeModal from '../components/NewRecipeModal.vue';
 
 
 export default {
@@ -53,18 +56,18 @@ export default {
     return {
       recipes: computed(() => AppState.recipes),
 
-      async addNewRecipe() {
-        try {
-          Modal.getOrCreateInstance(document.getElementById("newRecipeModal")).toggle();
-          await recipesService.createRecipe()
-        } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
-        }
-      }
+      // async addNewRecipe() {
+      //   try {
+      //     Modal.getOrCreateInstance(document.getElementById("newRecipeModal")).toggle();
+      //     await recipesService.createRecipe()
+      //   } catch (error) {
+      //     logger.error(error)
+      //     Pop.toast(error.message, 'error')
+      //   }
+      // }
     };
   },
-  components: { RecipeCard }
+  components: { RecipeCard, NewRecipeModal }
 };
 </script>
 <style scoped lang="scss">

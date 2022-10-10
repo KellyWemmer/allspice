@@ -12,5 +12,7 @@ export const AppState = reactive({
 
   steps: [],
 
-  ingredients: []
+  ingredients: [],
+
+  categories: []
 })
