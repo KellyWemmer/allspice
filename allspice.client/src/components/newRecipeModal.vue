@@ -7,25 +7,43 @@
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <!-- TODO Remove color on input fields -->
-        <form @submit.prevent="handleSubmit">        
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input required v-model="editable.title" type="text" class="form-control" id="title" aria-describedby="titleHelp">    
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input required v-model="editable.description" type="text" class="form-control" id="description">
-            </div> 
-            <select class="form-select" aria-label="Default select">
-                <option selected>Open this select menu</option>
-                <!-- <option v-for="c in categories"></option> -->
-            </select>                    
-        </form>
+        <div class="container-fluid">
+            <form @submit.prevent="handleSubmit">        
+                <div class="row">
+                    <div class="col-6 mt-4">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input required v-model="editable.title" type="text" class="form-control" id="title" aria-describedby="titleHelp">    
+                        </div>
+                    </div>
+                    <div class="col-6 mt-4">
+                        <div class="form-group">
+                            <label for="picture">Image</label>
+                            <input required v-model="editable.picture" type="text" class="form-control" id="picture" aria-describedby="pictureHelp">    
+                        </div>                        
+                    </div>                                        
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-4">
+                        <div class="form-group">
+                            <label for="subtitle">Subtitle</label>
+                            <input required v-model="editable.subtitle" type="text" class="form-control" id="subtitle" placeholder="Details">
+                        </div>
+                        <small class="form-text text-muted">A Brief Description of the Recipe</small>                           
+                    </div>
+                    <div class="col-6 mt-4">
+                        <label for="category">Category</label>
+                        <select class="form-select" aria-label="Default select">
+                            <option v-for="c in categories">{{c}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>    
+        </div>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary">Create</button>
       </div>
     </div>
   </div>
@@ -37,6 +55,7 @@ import { computed } from '@vue/reactivity';
 import { onMounted, ref, watchEffect } from 'vue';
 import { logger } from '../utils/Logger';
 import { categoriesService} from '../services/CategoriesService'
+import { AppState} from '../AppState'
 
 export default {
     props: {recipeData: { type: Object, required: false, default: {} }},
