@@ -20,5 +20,6 @@ class RecipesService {
         logger.log("Create Recipe", res.data)
         AppState.recipes.push(res.data)
     }
+
 }
 export const recipesService = new RecipesService()

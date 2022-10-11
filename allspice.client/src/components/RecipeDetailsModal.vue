@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="recipe-modal" tabindex="-1" aria-labelledby="recipe-modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
         <div class="modal-header bg-dark text-light">
             <h5 class="modal-title">{{recipe?.title}}</h5>

@@ -38,12 +38,12 @@
                         </select>
                     </div>
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
+                </div>
             </form>    
         </div>        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Create</button>
       </div>
     </div>
   </div>
@@ -56,6 +56,8 @@ import { onMounted, ref, watchEffect } from 'vue';
 import { logger } from '../utils/Logger';
 import { categoriesService} from '../services/CategoriesService'
 import { AppState} from '../AppState'
+import { recipesService } from '../services/RecipesService';
+import Pop from '../utils/Pop';
 
 export default {
     props: {recipeData: { type: Object, required: false, default: {} }},
@@ -81,6 +83,17 @@ export default {
         return {
             editable,
             categories: computed(()=> AppState.categories),
+
+            async handleSubmit() {
+                try {
+                    await recipesService.createRecipe(editable.value);
+                    logger.log('Recipe Data Input', editable.value)
+                    Pop.toast('Recipe Created')
+                } catch (error) {
+                  logger.error(error)
+                  Pop.toast(error.message, 'error')
+                }
+            }
 
             
         };
