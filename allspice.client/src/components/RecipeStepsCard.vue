@@ -1,7 +1,7 @@
 <template>
     <div class="card" style="width: 21rem;">
         <div class="bg-dark card-header">
-            Recipe Steps       
+            Recipe Steps <span class="selectable mdi mdi-pencil-box-outline" title="Edit-Steps"></span>      
         </div>
         <ol class="list-group list-group-flush">
             <li v-for="s in steps" :key="s.id" class="list-group-item">{{s.position}}. {{s.body}}</li>
@@ -9,13 +9,13 @@
         <form @submit.prevent="handleSubmit">
             <div class="row">
                 <div class="col-3 mt-2 mb-2">                    
-                    <input required type="number" class="form-control" id="step-number" aria-describedby="stepHelp" placeholder="#">
+                    <input required v-model="editable.position" type="number" class="form-control" id="step-number" aria-describedby="stepHelp" placeholder="#">
                 </div>
                 <div class="col-7 mt-2 mb-2">                   
-                    <input required type="text" class="form-control" id="step-body" aria-describedby="stepHelp" placeholder="Instructions">
+                    <input required v-model="editable.body" type="text" class="form-control" id="step-body" aria-describedby="stepHelp" placeholder="Instructions">
                 </div> 
                 <div class="col-2 mt-3 mb-2">
-                    <button class="mdi mdi-plus"></button>                   
+                    <button type="submit" class="mdi mdi-plus"></button>                   
                 </div>               
             </div>
         </form>       
@@ -23,12 +23,13 @@
 </template>
 <script>
 import { computed } from '@vue/reactivity';
-import { onMounted } from 'vue';
+import { onMounted, watchEffect, ref } from 'vue';
 import { AppState } from '../AppState';
 import { recipesService } from '../services/RecipesService';
 import { stepsService } from '../services/StepsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
+
 
 export default {
     //Steps card is receiving information on active recipe from modal
@@ -36,9 +37,18 @@ export default {
         recipe:{
             type: Object,
             required:true
+        },
+        stepsData: { type: Object, 
+            required: true, default: {}
         }
     },
     setup(props) {
+        const editable = ref({})
+        watchEffect(() => {
+            logger.log("watching step")
+            editable.value = props.stepsData
+        })
+
         async function getRecipeById() {
             try {
                 if(AppState.activeRecipe){
@@ -68,8 +78,21 @@ export default {
         })
 
         return {
+            editable,
             steps: computed(()=> AppState.steps),
-            recipe: computed(()=>AppState.activeRecipe)
+            recipe: computed(()=>AppState.activeRecipe),
+
+            async handleSubmit() {
+                try {
+                    logger.log('Step Data', editable.value);
+                    editable.value.recipeId = this.recipe.id;
+                    await stepsService.createStep(editable.value);
+                    Pop.toast("Step has been created")
+                }   catch (error) {
+                    logger.log(error)
+                    Pop.toast(error.message, 'error')
+                }
+            }
         };
     },
 };

@@ -9,6 +9,11 @@ class StepsService {
         AppState.steps = res.data
     }
 
-}
+    async createStep(step) {
+        const res = await api.post('api/Steps', step) 
+        logger.log('Creating Step', res.data)
+        AppState.steps.push(res.data)
+    }
 
+}
 export const stepsService = new StepsService();

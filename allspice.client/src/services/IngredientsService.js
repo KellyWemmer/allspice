@@ -9,6 +9,12 @@ export class IngredientsService {
         AppState.ingredients =  res.data
     }
 
+    async createIngredient(ingredient) {
+        const res = await api.post('api/Ingredients', ingredient) 
+        logger.log('Creating Ingredient', res.data)
+        AppState.ingredients.push(res.data)
+    }
+
 }
 
 export const ingredientsService = new IngredientsService()
