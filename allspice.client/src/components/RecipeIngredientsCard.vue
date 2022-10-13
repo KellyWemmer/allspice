@@ -2,7 +2,7 @@
     
     <div class="card" style="width: 21rem;">
     <div class="bg-dark card-header">
-        Recipe Ingredients <span class="selectable mdi mdi-pencil-box-outline" title="Edit-Ingredients"></span>      
+        Recipe Ingredients <span class="selectable mdi mdi mdi-pencil m-2" title="Edit-Ingredients"></span>      
     </div>
     <ol class="list-group list-group-flush">
         <li v-for="i in ingredients" :key="i.id" class="list-group-item">{{i.quantity}} {{i.name}}</li>

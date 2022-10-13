@@ -27,7 +27,7 @@
             </div>
             <div class="row">
                 <div class="col-12 text-end m-2">
-                    <button class="btn bg-dark">Delete Recipe</button>
+                    <button @click="deleteRecipe(recipe.id)" class="btn bg-dark close" data-bs-dismiss="modal" aria-label="Close">Delete Recipe</button>
                 </div>
             </div>        
         </div>        
@@ -38,13 +38,28 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState';
+import { router } from '../router';
+import { recipesService } from '../services/RecipesService';
+import Pop from '../utils/Pop';
 import RecipeStepsCard from './RecipeStepsCard.vue';
 
 export default {
     //Modal sends information to cards
     setup() {
         return {
-            recipe: computed(() => AppState.activeRecipe)
+            recipe: computed(() => AppState.activeRecipe),
+
+            async deleteRecipe(id) {
+                try {
+                  await recipesService.deleteRecipe(id)
+                  Pop.toast("This recipe and it's contents have been deleted")
+                  router.push({name: 'Home'})
+                } catch (error) {
+                  logger.error(error)
+                  Pop.toast(error.message, 'error')
+                  router.push({name: 'Home'})
+                }
+            }
         };
     },
     components: { RecipeStepsCard }

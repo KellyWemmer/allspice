@@ -1,7 +1,7 @@
 <template>
     <div class="card" style="width: 21rem;">
         <div class="bg-dark card-header">
-            Recipe Steps <span class="selectable mdi mdi-pencil-box-outline" title="Edit-Steps"></span>      
+            Recipe Steps <span class="selectable mdi mdi-pencil m-2" title="Edit-Steps"></span>      
         </div>
         <ol class="list-group list-group-flush">
             <li v-for="s in steps" :key="s.id" class="list-group-item">{{s.position}}. {{s.body}}</li>
