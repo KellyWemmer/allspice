@@ -27,7 +27,8 @@
             </div>
             <div class="row">
                 <div class="col-12 text-end m-2">
-                    <button @click="deleteRecipe(recipe.id)" class="btn bg-dark close" data-bs-dismiss="modal" aria-label="Close">Delete Recipe</button>
+                    <button v-if="user.id == recipe?.creatorId" class="btn bg-dark close m-2" data-bs-dismiss="modal" aria-label="Close">Save Recipe</button>
+                    <button v-if="user.id == recipe?.creatorId" @click="deleteRecipe(recipe.id)" class="btn bg-dark close" data-bs-dismiss="modal" aria-label="Close">Delete Recipe</button>
                 </div>
             </div>        
         </div>        
@@ -48,9 +49,12 @@ export default {
     setup() {
         return {
             recipe: computed(() => AppState.activeRecipe),
+            user: computed(()=> AppState.user),
 
             async deleteRecipe(id) {
                 try {
+                  const yes = await Pop.confirm('Are you sure you want to delete this recipe?')  
+                  if(!yes) {return}
                   await recipesService.deleteRecipe(id)
                   Pop.toast("This recipe and it's contents have been deleted")
                   router.push({name: 'Home'})
