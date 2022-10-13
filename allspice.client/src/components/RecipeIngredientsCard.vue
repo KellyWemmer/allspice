@@ -5,7 +5,7 @@
         Recipe Ingredients      
     </div>
     <ol class="list-group list-group-flush">
-        <li v-for="i in ingredients" :key="i.id" class="list-group-item"><span v-if="user.id == recipe?.creatorId" class="selectable text-danger mdi mdi-alpha-x-circle-outline m-3" title="delete"></span>{{i.quantity}} {{i.name}}</li>
+        <li v-for="i in ingredients" :key="i.id" class="list-group-item"><span v-if="user.id == recipe?.creatorId" @click="deleteIngredient(i.id)" class="selectable text-danger mdi mdi-alpha-x-circle-outline m-3" title="delete"></span>{{i.quantity}} {{i.name}}</li>
     </ol>
     <div v-if="user.id == recipe?.creatorId">
         <form @submit.prevent="handleSubmit">
@@ -95,7 +95,19 @@ export default {
                     logger.log(error)
                     Pop.toast(error.message, 'error')
                 }
-            }    
+            },
+            
+            async deleteIngredient(id) {
+                try {
+                    const yes = await Pop.confirm('Are you sure you want to delete this ingredient?')  
+                  if(!yes) {return}
+                    await ingredientsService.deleteIngredient(id)
+                    Pop.toast                       
+                } catch (error) {
+                  logger.error(error)
+                  Pop.toast(error.message, 'error')
+                }
+            }
         };
     },
 };

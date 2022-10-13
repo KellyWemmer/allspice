@@ -15,6 +15,12 @@ export class IngredientsService {
         AppState.ingredients.push(res.data)
     }
 
+    async deleteIngredient(id) {
+        const res = await api.delete(`api/Ingredients/${id}`)
+        logger.log('Deleted ingredient', res.data)
+        AppState.ingredients = AppState.ingredients.filter(i=> i.id != id)
+    }
+
 }
 
 export const ingredientsService = new IngredientsService()

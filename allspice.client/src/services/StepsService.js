@@ -15,5 +15,11 @@ class StepsService {
         AppState.steps.push(res.data)
     }
 
+    async deleteStep(id) {
+        const res = await api.delete(`api/steps/${id}`)
+        logger.log('step deleted', res.data)
+        AppState.steps = AppState.steps.filter(s=> s.id != id)
+    }
+
 }
 export const stepsService = new StepsService();

@@ -33,8 +33,8 @@
                     </div>
                     <div class="col-6 mt-4">
                         <label for="category">Category</label>
-                        <select class="form-select" aria-label="Default select">
-                            <option v-for="c in categories">{{c}}</option>
+                        <select class="form-control" @change="changeCategory($event)" aria-label="Default select" >
+                            <option v-for="c in categories" :key="c.id" :value="c">{{c}}</option>
                         </select>
                     </div>
                 </div>
@@ -76,6 +76,7 @@ export default {
                 Pop.toast(error.message, 'error')
             }
         }
+
         onMounted(()=>{
             getCategories()
         })
@@ -86,6 +87,8 @@ export default {
 
             async handleSubmit() {
                 try {
+                    editable.value.category = this.selectedCategory
+                    logger.log('category in handleSubmit', this.selectedCategory)
                     await recipesService.createRecipe(editable.value);
                     logger.log('Recipe Data Input', editable.value)
                     Pop.toast('Recipe Created')
@@ -93,6 +96,11 @@ export default {
                   logger.error(error)
                   Pop.toast(error.message, 'error')
                 }
+            },
+
+            changeCategory(event) {
+                logger.log('category', event.target.options[event.target.options.selectedIndex].text)
+                this.selectedCategory = event.target.options[event.target.options.selectedIndex].text
             }
 
             

@@ -4,7 +4,7 @@
             Recipe Steps      
         </div>
         <ol class="list-group list-group-flush">
-            <li v-for="s in steps" :key="s.id" class="list-group-item"><span v-if="user.id == recipe?.creatorId" class="selectable text-danger mdi mdi-alpha-x-circle-outline m-3" title="delete"></span>{{s.position}}. {{s.body}}</li>
+            <li v-for="s in steps" :key="s.id" class="list-group-item"><span v-if="user.id == recipe?.creatorId" @click="deleteStep(s.id)" class="selectable text-danger mdi mdi-alpha-x-circle-outline m-3" title="delete"></span>{{s.position}}. {{s.body}}</li>
         </ol>
         <div v-if="user.id == recipe?.creatorId">
             <form @submit.prevent="handleSubmit">
@@ -94,6 +94,18 @@ export default {
                 }   catch (error) {
                     logger.log(error)
                     Pop.toast(error.message, 'error')
+                }
+            },
+
+            async deleteStep(id) {
+                try {
+                    const yes = await Pop.confirm('Are you sure you want to delete this step?')  
+                  if(!yes) {return}
+                    await stepsService.deleteStep(id)
+                    Pop.toast                       
+                } catch (error) {
+                  logger.error(error)
+                  Pop.toast(error.message, 'error')
                 }
             }
         };
