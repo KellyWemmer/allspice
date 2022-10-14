@@ -21,11 +21,14 @@
         </div>
       </div>        
     </div>
-    <div>
-    </div> 
-    <div class="row">
-      <div class="col-md-3 pt-3" v-for="r in recipes" :key="r.id">
-        <RecipeCard :recipe="r" />        
+    <div class="row mt-4">
+      <div class="col-md-12" >
+        <div class="masonry">
+          <div class="recipe-card" v-for="r in recipes" :key="r.id">
+            <RecipeCard :recipe="r" />
+          </div>
+          
+        </div>
       </div>
       <div class="row">
         <div class="col-12 d-flex justify-content-end">
@@ -96,4 +99,16 @@ export default {
     top: 20%;
     left: 38%;
   }
+
+  .masonry { 
+  columns: 4 400px;
+  column-gap: 1em; 
+
+  div { 
+    display: block;
+    margin-bottom: 1em;  
+    width: 100%;  
+  } 
+}
+ 
 </style>
