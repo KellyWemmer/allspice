@@ -4,12 +4,11 @@
         <div class="row img-category text-white d-flex aligns-items-center text-center">
             <p class="text-category">{{recipe.category}}</p>
         </div>          
-        <div class="row img-text text-white d-flex">
-            <h5 class="recipe-title">{{recipe.title}}</h5>
-                <div>
-                    <p>{{recipe.subtitle}}</p>    
-                </div>
-            
+        <div class="row text-white img-title d-flex">
+            <div class="text-title">
+                <h5 class="m-0">{{recipe.title}}</h5>            
+                <p class="m-0">{{recipe.subtitle}}</p>
+            </div>                        
         </div>      
     </div>    
 <RecipeDetailsModal/>
@@ -61,25 +60,26 @@ export default {
 
     }
 
+    .img-title {
+        position: absolute;
+        width: 100%;
+        bottom: 5%;
+        left: 7%;
+        width: 90%;  
+    }
+
     .text-category {
         border-radius: 30px;
         background: rgba(57, 56, 56, 0.4);
         border: 1px solid #f4f4f4;
         backdrop-filter: blur(8px);   
-    }    
-        
-        
+    }  
     
-
-    .img-text{
-        position: absolute;
-        width: 100%;
-        bottom: 5%;
-        left: 7%;
-        width: 90%;
+    .text-title {
         border-radius: 10px;
         background: rgba(57, 56, 56, 0.4);
         border: 1px solid #f4f4f4;
-        backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px); 
     }
-    </style>
+
+</style>

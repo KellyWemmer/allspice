@@ -18,7 +18,7 @@
                             <div class="col-5 d-flex justify-content-between">
                                 <b>{{recipe?.title}}</b>
                             <div class="col-5 category-text text-center">
-                                <span class="m-3"><b>{{recipe?.category}}</b></span>
+                                <span class="m-3">{{recipe?.category}}</span>
                             </div>    
                                 
                             </div>
