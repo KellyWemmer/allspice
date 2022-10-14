@@ -22,11 +22,11 @@
             height="40"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
+          <!-- <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span> -->
         </div>
       </div>
       <div
-        class="dropdown-menu p-0 list-group w-100"
+        class="dropdown-menu drop-menu-end p-0 list-group w-25"
         aria-labelledby="authDropdown"
       >
         <router-link :to="{ name: 'Account' }">
@@ -81,4 +81,5 @@ export default {
 .hoverable {
   cursor: pointer;
 }
+
 </style>

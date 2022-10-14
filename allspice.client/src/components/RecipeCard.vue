@@ -1,12 +1,14 @@
 <template>
     <div class="selectable img-card" @click="setActiveRecipeModal()">
-        <img class="img-fluid mb-3 mt-3 rounded" :src="recipe.picture" alt="">  
-        <!-- TODO in this div.... draw the keep name and the creator img -->
-        <div class="row img-text d-flex justify-content-between">
+        <img class="img-fluid mb-3 mt-3 rounded" :src="recipe.picture" alt="">
+        <div class="row img-category text-white d-flex aligns-items-center text-center">
+            <p class="text-category">{{recipe.category}}</p>
+        </div>          
+        <div class="row img-text text-white d-flex">
             <h5 class="recipe-title">{{recipe.title}}</h5>
-            <div>
-                <p>{{recipe.subtitle}}</p>    
-            </div>
+                <div>
+                    <p>{{recipe.subtitle}}</p>    
+                </div>
             
         </div>      
     </div>    
@@ -50,6 +52,25 @@ export default {
         width: 100%;
     }
 
+    .img-category {
+        position: absolute;
+        width: 100%;
+        top: 5%;
+        left: 6%;
+        width: 30%;
+
+    }
+
+    .text-category {
+        border-radius: 30px;
+        background: rgba(57, 56, 56, 0.4);
+        border: 1px solid #f4f4f4;
+        backdrop-filter: blur(8px);   
+    }    
+        
+        
+    
+
     .img-text{
         position: absolute;
         width: 100%;
@@ -57,7 +78,7 @@ export default {
         left: 7%;
         width: 90%;
         border-radius: 10px;
-        background: rgba(239, 237, 237, 0.4);
+        background: rgba(57, 56, 56, 0.4);
         border: 1px solid #f4f4f4;
         backdrop-filter: blur(8px);
     }

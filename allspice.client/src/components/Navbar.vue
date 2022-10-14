@@ -1,11 +1,11 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+  <!-- <nav class="navbar navbar-expand-lg bg-dark px-3"> -->
+    <!-- <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <!-- <img alt="logo" src="" height="45" /> -->
+        <img alt="logo" src="" height="45" />
       </div>
-    </router-link>
-    <button
+    </router-link> -->
+    <!-- <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
@@ -15,22 +15,22 @@
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon" />
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
+    </button> -->
+    <!-- <div class="collapse navbar-collapse" id="navbarText"> -->
+      <!-- <ul class="navbar-nav me-auto">
         <li>
-          <!-- <router-link
+          <router-link
             :to="{ name: 'About' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
             About
-          </router-link> -->
+          </router-link>
         </li>
-      </ul>
+      </ul> -->
       <!-- LOGIN COMPONENT HERE -->
-      <Login />
-    </div>
-  </nav>
+      <!-- <Login /> -->
+    <!-- </div> -->
+  <!-- </nav> -->
 </template>
 
 <script>

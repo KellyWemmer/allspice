@@ -32,8 +32,10 @@
                         <small class="form-text text-muted">A Brief Description of the Recipe</small>                           
                     </div>
                     <div class="col-6 mt-4">
+                        <!-- TODO set default category -->
                         <label for="category">Category</label>
                         <select class="form-control" @change="changeCategory($event)" aria-label="Default select" >
+                            <option value="" selected disabled>Choose a Category</option>
                             <option v-for="c in categories" :key="c.id" :value="c">{{c}}</option>
                         </select>
                     </div>

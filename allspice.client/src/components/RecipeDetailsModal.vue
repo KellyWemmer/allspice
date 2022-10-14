@@ -15,11 +15,15 @@
                     </div>
                     <div class="col-8">
                         <div class="row">
-                            <div class="col-12">
-                                <b>{{recipe?.title}}</b>{{recipe?.category}}
+                            <div class="col-5 d-flex justify-content-between">
+                                <b>{{recipe?.title}}</b>
+                            <div class="col-5 category-text text-center">
+                                <span class="m-3"><b>{{recipe?.category}}</b></span>
+                            </div>    
+                                
                             </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 mt-2 mb-1">
                                 {{recipe?.subtitle}}
                             </div>
                         </div> 
@@ -84,4 +88,11 @@ export default {
 };
 </script>
 <style>
+
+.category-text {
+    border-radius: 30px;
+    background: rgba(57, 56, 56, 0.4);
+    border: 1px solid #f4f4f4;
+    backdrop-filter: blur(8px);   
+}
 </style>

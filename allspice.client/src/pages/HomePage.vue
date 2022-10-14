@@ -1,10 +1,13 @@
 <template>
   <div class="container-fluid">    
-    <div class="row">
+    <div class="row">     
       <div class="col-12 g-0 text-center">
         <div class="title" id="banner-image">
+          <div class="text-end p-2">
+            <login/>
+          </div>        
           <div class="text-light text-shadow">
-            <h2 class="pt-5">All-Spice</h2>
+            <h2 class="pt-2">All-Spice</h2>
             <h4>Cherish Your Family</h4>
             <h4>And Their Cooking</h4>
           </div>
@@ -54,17 +57,8 @@ export default {
     })
     
     return {
-      recipes: computed(() => AppState.recipes),
+      recipes: computed(() => AppState.recipes)
 
-      // async addNewRecipe() {
-      //   try {
-      //     Modal.getOrCreateInstance(document.getElementById("newRecipeModal")).toggle();
-      //     await recipesService.createRecipe()
-      //   } catch (error) {
-      //     logger.error(error)
-      //     Pop.toast(error.message, 'error')
-      //   }
-      // }
     };
   },
   components: { RecipeCard, NewRecipeModal }
