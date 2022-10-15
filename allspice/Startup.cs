@@ -10,6 +10,8 @@ using MySqlConnector;
 using allspice.Repositories;
 using allspice.Services;
 using allspice.Controllers;
+using allspice.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace allspice
 {
@@ -34,6 +36,14 @@ namespace allspice
             });
             services.AddScoped<IDbConnection>(x => CreateDbConnection());
             
+            //dependency injection for ApplicationDbContext
+            services.AddDbContext<ApplicationDbContext>(opt =>
+            {
+                //how to connect to database
+                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+
+                opt.EnableSensitiveDataLogging();
+            });
             services.AddScoped<AccountsRepository>();
             services.AddScoped<AccountService>();
             services.AddTransient<RecipesRepository>();
