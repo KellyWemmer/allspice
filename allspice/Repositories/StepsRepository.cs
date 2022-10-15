@@ -1,79 +1,72 @@
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using allspice.Data;
 using allspice.Models;
-using Dapper;
 
 namespace allspice.Repositories
 {
     public class StepsRepository
     {
-        private readonly IDbConnection _db;
-
-        public StepsRepository(IDbConnection db)
+        private readonly ApplicationDbContext _context;
+       
+        public StepsRepository(ApplicationDbContext context)
         {
-            _db = db;
+            this._context = context;
+            
         }
         internal Step GetStepById(int id)
         {
-            string sql = @"
-            SELECT
-                s.*
-                FROM step s
-                WHERE s.Id = @id;
-            ";
-            Step step = _db.Query<Step>(sql, new {id}).FirstOrDefault();
+            Step step = _context.Steps.FirstOrDefault(s => s.Id == id);
             return step;
         }
         internal List<Step> GetStepsByRecipeId(int recipeId)
         {
-           string sql = @"
-           SELECT
-                s.*
-                FROM step s
-            WHERE s.RecipeId = @recipeId;
-           ";
-           List<Step> steps = _db.Query<Step>(sql, new {recipeId}).AsList();
-           return steps;
+           List<Step> steps = _context.Steps.Where(s => s.RecipeId == recipeId).ToList();
+            return steps;  
         }
 
         internal Step Create(Step newStep)
         {
-            string sql = @"
-            INSERT INTO step
-            (position, body, recipeId)
-            VALUES
-            (@position, @body, @recipeId);
-            SELECT LAST_INSERT_ID();
-            ";
-            int id = _db.ExecuteScalar<int>(sql, newStep);
-            newStep.Id = id;
+            _context.Steps.Add(newStep);
+            _context.SaveChanges();
             return newStep;
         }
 
         internal Step Update(Step original)
         {
-            string sql = @"
-                UPDATE step SET
-                    position = @position,
-                    body = @body,
-                    recipeId = @recipeId
-                WHERE id = @id
-            ";
-            int rowsAffected = _db.Execute(sql, original);
-            if(rowsAffected == 0)
-            {
-                throw new System.Exception("Unable to edit step.");
+            // string sql = @"
+            //     UPDATE step SET
+            //         position = @position,
+            //         body = @body,
+            //         recipeId = @recipeId
+            //     WHERE id = @id
+            // ";
+            Step stepInDb = GetStepById(original.Id);
+            if(stepInDb != null) {
+                //only want to update these columns
+                stepInDb.Position = original.Position;
+                stepInDb.Body = original.Body;
+                stepInDb.RecipeId = original.RecipeId;
+                _context.Steps.Update(stepInDb);
+                _context.SaveChanges();
             }
-            return original;
+            else {
+                throw new Exception("step not found");
+            }
+            return stepInDb;
         }
 
         internal void Delete(int id)
         {
-            string sql = @"
-            DELETE FROM step WHERE id=@id;
-            ";
-            _db.Execute(sql, new {id});
+            Step step = GetStepById(id);
+            if(step != null) {
+                _context.Steps.Remove(step);
+                _context.SaveChanges();
+            }
+            else {
+                throw new Exception("step not found");
+            }
         }
     }
 }

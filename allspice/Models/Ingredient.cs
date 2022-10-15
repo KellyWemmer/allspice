@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace allspice.Models
 {
@@ -12,6 +13,8 @@ namespace allspice.Models
         public int RecipeId { get; set; }
         
         [ForeignKey("RecipeId")]
+        [InverseProperty("Ingredients")]
+        [JsonIgnore]
         public Recipe Recipe {get; set; }     
     }
 }

@@ -1,80 +1,68 @@
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using allspice.Data;
 using allspice.Models;
-using Dapper;
 
 namespace allspice.Repositories
 {
     public class IngredientsRepository
     {
-        private readonly IDbConnection _db;
-
-        public IngredientsRepository(IDbConnection db)
+        private readonly ApplicationDbContext _context;
+        public IngredientsRepository(ApplicationDbContext context)
         {
-            _db = db;
+            this._context = context;
+            
         }
         internal Ingredient GetIngredientById(int id)
         {
-            string sql = @"
-            SELECT
-                i.*
-                FROM ingredient i
-                WHERE i.Id = @id;
-            ";
-            Ingredient ingredient = _db.Query<Ingredient>(sql, new {id}).FirstOrDefault();
+
+            Ingredient ingredient = _context.Ingredients.FirstOrDefault(i => i.Id == id);
             return ingredient;
         }
         internal List<Ingredient> GetIngredientsByRecipeId(int recipeId)//Banana word
         {
-            string sql = @"
-            SELECT 
-                i.*
-                FROM ingredient i
-            WHERE i.RecipeId = @recipeId;
-            ";
-            List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new {recipeId}).AsList();
-            return ingredients;            
+            
+            //"Where" returns an IQueriable, which needs to be turned back into a list
+            List<Ingredient> ingredients = _context.Ingredients.Where(i => i.RecipeId == recipeId).ToList();
+            return ingredients;    
 
         }
 
         internal Ingredient Create(Ingredient newIngredient)
         {
-            string sql = @"
-            INSERT INTO ingredient
-            (name, quantity, recipeId)
-            VALUES
-            (@name, @quantity, @recipeId);
-            SELECT LAST_INSERT_ID();
-            ";
-            int id = _db.ExecuteScalar<int>(sql, newIngredient);
-            newIngredient.Id = id;
+            _context.Ingredients.Add(newIngredient);
+            _context.SaveChanges();
             return newIngredient;
         }
 
         internal Ingredient Update(Ingredient original)
-        {
-            string sql = @"
-                UPDATE ingredient SET
-                    name = @name,
-                    quantity = @quantity,
-                    recipeId = @recipeId
-                WHERE id = @id;
-            ";
-            int rowsAffected = _db.Execute(sql, original);
-            if(rowsAffected == 0)
-            {
-                throw new System.Exception("Unable to edit ingredient.");
-            } 
-            return original;          
+        {            
+            Ingredient ingredientInDb = GetIngredientById(original.Id);
+            if(ingredientInDb != null) {
+                //only want to update these columns
+                ingredientInDb.Name = original.Name;
+                ingredientInDb.Quantity = original.Quantity;
+                ingredientInDb.RecipeId = original.RecipeId;
+                _context.Ingredients.Update(ingredientInDb);
+                _context.SaveChanges();
+            }
+            else {
+                throw new Exception("ingredient not found");
+            }
+            return ingredientInDb;
         }
 
         internal void Delete(int id)
-        {
-            string sql = @"
-                DELETE FROM ingredient WHERE id=@id;
-            ";
-            _db.Execute(sql, new {id});
+        {            
+            Ingredient ingredient = GetIngredientById(id);
+            if(ingredient != null) {
+                _context.Ingredients.Remove(ingredient);
+                _context.SaveChanges();
+            }
+            else {
+                throw new Exception("ingredient not found");
+            }
         }
     }
 }

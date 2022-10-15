@@ -15,7 +15,9 @@ namespace allspice.Models
         public string CreatorId { get; set; }  
         [ForeignKey("CreatorId")]
         public Account Creator { get; set; }//Added to access the creator object
+        [InverseProperty("Recipe")]
         public ICollection<Step> Steps { get; set; } //sets one to many relationship
+        [InverseProperty("Recipe")]
         public ICollection<Ingredient> Ingredients { get; set; }
 
     }

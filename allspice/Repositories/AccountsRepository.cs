@@ -1,51 +1,59 @@
-using System.Data;
+using System;
+using System.Linq;
+using allspice.Data;
 using allspice.Models;
-using Dapper;
 
 namespace allspice.Repositories
 {
     public class AccountsRepository
-    {
-        private readonly IDbConnection _db;
+    {        
+        private readonly ApplicationDbContext _context;
 
-        public AccountsRepository(IDbConnection db)
+        public AccountsRepository(ApplicationDbContext context)
         {
-            _db = db;
+        
+            this._context = context;
         }
 
         internal Account GetByEmail(string userEmail)
         {
-            string sql = "SELECT * FROM accounts WHERE email = @userEmail";
-            return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
+
+            Account account = _context.Accounts.FirstOrDefault(a => a.Email == userEmail);
+            return account;
         }
 
         internal Account GetById(string id)
         {
-            string sql = "SELECT * FROM accounts WHERE id = @id";
-            return _db.QueryFirstOrDefault<Account>(sql, new { id });
+            
+            Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+            return account;
         }
 
         internal Account Create(Account newAccount)
         {
-            string sql = @"
-            INSERT INTO accounts
-              (name, picture, email, id)
-            VALUES
-              (@Name, @Picture, @Email, @Id)";
-            _db.Execute(sql, newAccount);
+            
+            //Pass in new account, save it, newAccount will have Id set
+            _context.Accounts.Add(newAccount);
+            _context.SaveChanges();
             return newAccount;
         }
 
         internal Account Edit(Account update)
         {
-            string sql = @"
-            UPDATE accounts
-            SET 
-              name = @Name,
-              picture = @Picture
-            WHERE id = @Id;";
-            _db.Execute(sql, update);
-            return update;
+
+            //Updates accountInDb because it's already cached
+            Account accountInDb = GetById(update.Id);
+            if(accountInDb != null) {
+                //only want to update these columns
+                accountInDb.Name = update.Name;
+                accountInDb.Picture = update.Picture;
+                _context.Accounts.Update(accountInDb);
+                _context.SaveChanges();
+            }
+            else {
+                throw new Exception("account not found");
+            }
+            return accountInDb;
         }
     }
 }
