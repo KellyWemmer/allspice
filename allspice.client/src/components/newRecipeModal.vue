@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-            <form @submit.prevent="handleSubmit">        
+            <form @submit.prevent="handleSubmit" id="recipe-form">        
                 <div class="row">
                     <div class="col-6 mt-4">
                         <div class="form-group">
@@ -34,8 +34,8 @@
                     <div class="col-6 mt-4">
                         <!-- TODO set default category -->
                         <label for="category">Category</label>
-                        <select class="form-control" @change="changeCategory($event)" aria-label="Default select" >
-                            <option value="" selected disabled>Choose a Category</option>
+                        <select class="form-control" id="category-value" @change="changeCategory($event)" aria-label="Default select" >
+                            <option value="" selected="true" id="default-option"></option>
                             <option v-for="c in categories" :key="c.id" :value="c">{{c}}</option>
                         </select>
                     </div>
@@ -70,6 +70,8 @@ export default {
             editable.value = props.recipeData
         })
 
+        
+
         async function getCategories() {
             try {
                 await categoriesService.getCategories()
@@ -94,6 +96,12 @@ export default {
                     await recipesService.createRecipe(editable.value);
                     logger.log('Recipe Data Input', editable.value)
                     Pop.toast('Recipe Created')
+                    var select = document.getElementById("category-value");
+                    
+                    document.getElementById('recipe-form').reset();
+                    editable.value = {};                    
+                    select = select.selectedIndex = -1;
+                    
                 } catch (error) {
                   logger.error(error)
                   Pop.toast(error.message, 'error')
@@ -103,9 +111,7 @@ export default {
             changeCategory(event) {
                 logger.log('category', event.target.options[event.target.options.selectedIndex].text)
                 this.selectedCategory = event.target.options[event.target.options.selectedIndex].text
-            }
-
-            
+            },            
         };
 
         
