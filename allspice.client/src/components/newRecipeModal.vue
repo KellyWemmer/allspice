@@ -35,7 +35,7 @@
                         <!-- TODO set default category -->
                         <label for="category">Category</label>
                         <select class="form-control" id="category-value" @change="changeCategory($event)" aria-label="Default select" >
-                            <option value="" selected="true" id="default-option"></option>
+                            <option value="" selected="true" disabled id="default-option">Choose a category</option>
                             <option v-for="c in categories" :key="c.id" :value="c">{{c}}</option>
                         </select>
                     </div>
@@ -68,9 +68,7 @@ export default {
         watchEffect(()=> {
             logger.log('watching for recipeData')
             editable.value = props.recipeData
-        })
-
-        
+        })        
 
         async function getCategories() {
             try {
@@ -100,7 +98,7 @@ export default {
                     
                     document.getElementById('recipe-form').reset();
                     editable.value = {};                    
-                    select = select.selectedIndex = -1;
+                    select = select.selectedIndex = 0;
                     
                 } catch (error) {
                   logger.error(error)

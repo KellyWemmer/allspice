@@ -41,7 +41,7 @@ export default {
             required:true
         },
         ingredientsData: {type: Object,
-        required: true, default: {}
+            required: true, default: {}
         }
     },
     setup(props) {

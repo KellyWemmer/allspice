@@ -29,13 +29,13 @@
                         </div> 
                         <div class="row mt-3">
                             <div class="col-6">
-                                <div class="recipe-steps">
+                                <div v-if="recipe != null" class="recipe-steps">
                                     <!-- sends recipe information to the card via the prop ":recipe" -->
                                     <RecipeStepsCard :recipe="recipe"/> 
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="recipe-steps">
+                                <div v-if="recipe != null" class="recipe-steps">
                                     <RecipeIngredientsCard :recipe="recipe"/>
                                 </div>
                             </div>
