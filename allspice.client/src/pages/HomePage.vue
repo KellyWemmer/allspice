@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">    
     <div class="row">     
-      <div class="col-12 g-0 text-center shadow">
+      <!-- <div class="col-12 g-0 text-center shadow">
         <div class="title" id="banner-image">
           <div class="text-end p-2">
             <login/>
@@ -13,14 +13,13 @@
           </div>
           <div class="card nav-links shadow" style="width: 25rem;">
             <div class="d-flex card-body justify-content-around rounded">            
-              <!-- <a href="#" class="card-link">Home</a> -->
               <router-link :to="{ name: 'Home' }">Home</router-link>
-              <a href="#" class="card-link">My Recipes</a>
+              <router-link :to="{ name: 'MyRecipes'}">My Recipes</router-link>
               <a href="#" class="card-link">Favorites</a> 
             </div>
           </div>
         </div>
-      </div>        
+      </div>         -->
     </div>
     <div class="row mt-4">
       <div class="col-md-12" >
@@ -51,12 +50,14 @@ import {recipesService} from '../services/RecipesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import NewRecipeModal from '../components/NewRecipeModal.vue';
+import { useRoute } from 'vue-router';
 
 
 export default {
-  name: "Home",
+  name: "Home",  
 
-  setup() {
+  setup() {   
+
     async function getRecipes() {
       try {
         await recipesService.getRecipes();      
