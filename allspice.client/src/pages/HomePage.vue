@@ -13,7 +13,8 @@
           </div>
           <div class="card nav-links shadow" style="width: 25rem;">
             <div class="d-flex card-body justify-content-around rounded">            
-              <a href="#" class="card-link">Home</a>
+              <!-- <a href="#" class="card-link">Home</a> -->
+              <router-link :to="{ name: 'Home' }">Home</router-link>
               <a href="#" class="card-link">My Recipes</a>
               <a href="#" class="card-link">Favorites</a> 
             </div>

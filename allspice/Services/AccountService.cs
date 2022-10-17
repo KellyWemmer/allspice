@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using allspice.Models;
 using allspice.Repositories;
 
@@ -35,6 +36,11 @@ namespace allspice.Services
             original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
             original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
             return _repo.Edit(original);
+        }
+
+        internal List<Recipe> GetRecipesByUser(string userId)
+        {
+            return _repo.GetRecipesByUser(userId);
         }
     }
 }

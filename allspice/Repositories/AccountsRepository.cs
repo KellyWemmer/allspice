@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using allspice.Data;
 using allspice.Models;
@@ -54,6 +55,12 @@ namespace allspice.Repositories
                 throw new Exception("account not found");
             }
             return accountInDb;
+        }
+
+        internal List<Recipe> GetRecipesByUser(string userId)
+        {
+            List<Recipe> userRecipes = _context.Recipes.Where(r => r.CreatorId == userId).ToList();
+            return userRecipes;
         }
     }
 }

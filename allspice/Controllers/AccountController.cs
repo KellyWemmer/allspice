@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using allspice.Models;
 using allspice.Services;
@@ -32,6 +31,21 @@ namespace allspice.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("recipes")]
+        [Authorize]
+        public async Task<ActionResult<Account>> GetRecipesByUser()
+        {
+            try 
+            {
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                return Ok(_accountService.GetRecipesByUser(user.Id));
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
             }
         }
     }
