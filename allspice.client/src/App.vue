@@ -17,7 +17,7 @@
                 <!-- <a href="#" class="card-link">Home</a> -->
                 <router-link :to="{ name: 'Home' }">Home</router-link>
                 <router-link :to="{ name: 'MyRecipes'}">My Recipes</router-link>
-                <a href="#" class="card-link">Favorites</a> 
+                <router-link :to="{ name: 'Favorites'}">Favorites</router-link> 
               </div>
             </div>
           </div>
