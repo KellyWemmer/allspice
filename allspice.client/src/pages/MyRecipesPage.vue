@@ -1,10 +1,12 @@
 <template>
-    <div class="row mt-4">
-        <div class="masonry">
-            <div v-if="recipes != null" class="col-3 recipe-imgs" v-for="r in recipes" :key="r.id">
-                <RecipeCard :recipe="r"/> 
-            </div>
-        </div>  
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="masonry">
+                <div v-if="recipes != null" class="col-3 recipe-imgs" v-for="r in recipes" :key="r.id">
+                    <RecipeCard :recipe="r"/> 
+                </div>
+            </div>  
+        </div>
     </div>
 </template>
 <script>
