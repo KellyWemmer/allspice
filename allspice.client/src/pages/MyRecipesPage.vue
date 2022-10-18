@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mt-4">
             <div class="masonry">
-                <div v-if="recipes != null" class="col-3 recipe-imgs" v-for="r in recipes" :key="r.id">
+                <div v-if="myRecipes != null" class="col-3 recipe-imgs" v-for="r in myRecipes" :key="r.id">
                     <RecipeCard :recipe="r"/> 
                 </div>
             </div>  
@@ -35,7 +35,7 @@ export default {
 
         return {
             user: computed(()=> AppState.user),
-            recipes: computed(()=>AppState.myRecipes),
+            myRecipes: computed(()=>AppState.myRecipes),
             account: computed(()=> AppState.account),
         };
     },
