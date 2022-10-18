@@ -1,13 +1,13 @@
 <template>
     <div class="selectable img-card" @click="setActiveRecipeModal()">
-        <img class="img-fluid mb-3 mt-3 rounded" :src="recipe.picture" alt="">
+        <img class="img-fluid mb-3 mt-3 rounded" :src="recipe?.picture" alt="">
         <div class="row img-category text-white d-flex aligns-items-center text-center">
-            <p class="text-category">{{recipe.category}}</p>
+            <p class="text-category">{{recipe?.category}}</p>
         </div>          
         <div class="row text-white img-title d-flex">
             <div class="text-title">
-                <h5 class="m-0">{{recipe.title}}</h5>            
-                <p class="m-0">{{recipe.subtitle}}</p>
+                <h5 class="m-0">{{recipe?.title}}</h5>            
+                <p class="m-0">{{recipe?.subtitle}}</p>
             </div>                        
         </div>      
     </div>    
@@ -24,7 +24,8 @@ import Pop from '../utils/Pop';
 import RecipeDetailsModal from './RecipeDetailsModal.vue';
 
 export default {
-    props: { recipe: { type: Object, required: true } },
+    props: { 
+        recipe: { type: Object, required: true }},
     setup(props) {
         return {
             async setActiveRecipeModal() {  //get steps and ingredients when modal is rendered.              

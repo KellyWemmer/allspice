@@ -1,25 +1,6 @@
 <template>
   <div class="container-fluid">    
     <div class="row">     
-      <!-- <div class="col-12 g-0 text-center shadow">
-        <div class="title" id="banner-image">
-          <div class="text-end p-2">
-            <login/>
-          </div> 
-          <div class="text-light mt-2 text-shadow">
-            <h2 class="">All-Spice</h2>
-            <h4>Cherish Your Family</h4>
-            <h4>And Their Cooking</h4>
-          </div>
-          <div class="card nav-links shadow" style="width: 25rem;">
-            <div class="d-flex card-body justify-content-around rounded">            
-              <router-link :to="{ name: 'Home' }">Home</router-link>
-              <router-link :to="{ name: 'MyRecipes'}">My Recipes</router-link>
-              <a href="#" class="card-link">Favorites</a> 
-            </div>
-          </div>
-        </div>
-      </div>         -->
     </div>
     <div class="row mt-4">
       <div class="col-md-12" >
