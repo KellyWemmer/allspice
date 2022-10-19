@@ -66,12 +66,12 @@ namespace allspice.Repositories
         }
         internal List<Recipe> GetFavoritesByUser(string userId)
         {
-            List<Recipe> recipes = _context.Accounts
-                .Include("Favorites")
-                .Include("Favorites.Recipe")
-                .FirstOrDefault(x => x.Id == userId && (x.Favorites != null && x.Favorites.Count > 0))
+            List<Recipe> recipes = _context.Accounts // Want a list of favorited recipes
+                .Include("Favorites") //join favorites table
+                .Include("Favorites.Recipe") //join recipe object from favorites table
+                .FirstOrDefault(x => x.Id == userId && (x.Favorites != null && x.Favorites.Count > 0)) //where account id = userId and favorites are not null and greater than 0
                 .Favorites
-                .Select(x => x.Recipe)
+                .Select(x => x.Recipe)//select the favorited recipes and form list
                 .ToList();
 
             return recipes;
