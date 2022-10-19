@@ -48,6 +48,22 @@ namespace allspice.Controllers
               return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("favorites")]
+        [Authorize]
+
+        public async Task<ActionResult<Account>> GetFavoritesByUser()
+        {
+            try 
+            {
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                return Ok(_accountService.GetFavoritesByUser(user.Id));
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
     }
 
 

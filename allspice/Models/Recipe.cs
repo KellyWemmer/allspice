@@ -20,6 +20,8 @@ namespace allspice.Models
         [InverseProperty("Recipe")]
         public ICollection<Ingredient> Ingredients { get; set; }
 
+        public ICollection<Favorite> Favorites { get; set; }//ICollection means multiple favorites
+
     }
 
    

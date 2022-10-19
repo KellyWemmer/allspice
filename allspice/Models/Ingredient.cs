@@ -15,6 +15,7 @@ namespace allspice.Models
         [ForeignKey("RecipeId")]
         [InverseProperty("Ingredients")]
         [JsonIgnore]
-        public Recipe Recipe {get; set; }     
+        public Recipe Recipe {get; set; } 
+    
     }
 }

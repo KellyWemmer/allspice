@@ -36,5 +36,10 @@ namespace allspice.Services
                 return $"The recipe {recipe.Title} has been deleted";
             }
         }
+
+        internal List<Favorite> GetFavoritesByRecipeId(int recipeId)
+        {
+            return _recipesRepo.GetFavoritesByRecipeId(recipeId);
+        }
     }
 }

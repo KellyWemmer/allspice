@@ -42,5 +42,10 @@ namespace allspice.Services
         {
             return _repo.GetRecipesByUser(userId);
         }
+
+        internal List<Recipe> GetFavoritesByUser(string id)
+        {
+            return _repo.GetFavoritesByUser(id);
+        }
     }
 }

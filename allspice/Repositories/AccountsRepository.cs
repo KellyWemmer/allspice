@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using allspice.Data;
 using allspice.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace allspice.Repositories
 {
@@ -57,10 +58,23 @@ namespace allspice.Repositories
             return accountInDb;
         }
 
+
         internal List<Recipe> GetRecipesByUser(string userId)
         {
             List<Recipe> userRecipes = _context.Recipes.Where(r => r.CreatorId == userId).ToList();
             return userRecipes;
+        }
+        internal List<Recipe> GetFavoritesByUser(string userId)
+        {
+            List<Recipe> recipes = _context.Accounts
+                .Include("Favorites")
+                .Include("Favorites.Recipe")
+                .FirstOrDefault(x => x.Id == userId && (x.Favorites != null && x.Favorites.Count > 0))
+                .Favorites
+                .Select(x => x.Recipe)
+                .ToList();
+
+            return recipes;
         }
     }
 }

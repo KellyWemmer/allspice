@@ -79,6 +79,22 @@ namespace allspice.Controllers
             return BadRequest(e.Message);
           }
         }
+
+        [HttpGet("{id}/favoritesByRecipe")]
+        
+        public ActionResult<List<Favorite>> GetFavoritesByRecipeId(int recipeId)
+        {
+            try 
+            {
+                List<Favorite> favorites = _recipesService.GetFavoritesByRecipeId(recipeId);
+                return Ok(favorites);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+            
+        }
         
     }
 }

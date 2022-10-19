@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace allspice.Models
@@ -9,5 +10,7 @@ namespace allspice.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Picture { get; set; }
+
+        public ICollection<Favorite> Favorites { get; set; } //ICollection tells Account that there will be many favorites
     }
 }
