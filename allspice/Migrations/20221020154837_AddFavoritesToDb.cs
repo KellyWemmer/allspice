@@ -4,12 +4,12 @@
 
 namespace allspice.Migrations
 {
-    public partial class addFavoritesTable : Migration
+    public partial class AddFavoritesToDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Favorite",
+                name: "Favorites",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -19,14 +19,14 @@ namespace allspice.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Favorite", x => x.Id);
+                    table.PrimaryKey("PK_Favorites", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Favorite_Accounts_AccountId",
+                        name: "FK_Favorites_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Favorite_Recipes_RecipeId",
+                        name: "FK_Favorites_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
@@ -34,20 +34,20 @@ namespace allspice.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Favorite_AccountId",
-                table: "Favorite",
+                name: "IX_Favorites_AccountId",
+                table: "Favorites",
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Favorite_RecipeId",
-                table: "Favorite",
+                name: "IX_Favorites_RecipeId",
+                table: "Favorites",
                 column: "RecipeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Favorite");
+                name: "Favorites");
         }
     }
 }

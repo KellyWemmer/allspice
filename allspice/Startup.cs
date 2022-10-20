@@ -9,9 +9,9 @@ using Microsoft.OpenApi.Models;
 using MySqlConnector;
 using allspice.Repositories;
 using allspice.Services;
-using allspice.Controllers;
 using allspice.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace allspice
 {
@@ -29,7 +29,9 @@ namespace allspice
         {
             ConfigureCors(services);
             ConfigureAuth(services);
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "allspice", Version = "v1" });

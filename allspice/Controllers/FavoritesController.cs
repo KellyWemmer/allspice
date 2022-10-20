@@ -1,4 +1,9 @@
+using System;
+using System.Threading.Tasks;
+using allspice.Models;
 using allspice.Services;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace allspice.Controllers
@@ -18,6 +23,28 @@ namespace allspice.Controllers
             _favoritesService = favoritesService;
             _recipesService = recipesService;
             _accountService = accountService;
+        }
+
+        [HttpPost]
+        [Authorize]
+
+        public async Task<ActionResult<Favorite>> Create(Favorite newFavorite)
+        {
+            try 
+            {
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                Recipe recipe = _recipesService.GetRecipeById(newFavorite.RecipeId);
+                if(user.Id == newFavorite.AccountId && recipe != null)
+                {
+                    Favorite favorite = _favoritesService.Create(newFavorite);
+                    return Ok(favorite);
+                }
+                return BadRequest("You need to be logged in to create a favorite");
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
         }
 
         

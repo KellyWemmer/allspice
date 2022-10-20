@@ -11,8 +11,8 @@ using allspice.Data;
 namespace allspice.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221019144024_addFavoritesTable")]
-    partial class addFavoritesTable
+    [Migration("20221020154837_AddFavoritesToDb")]
+    partial class AddFavoritesToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace allspice.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Favorite");
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("allspice.Models.Ingredient", b =>

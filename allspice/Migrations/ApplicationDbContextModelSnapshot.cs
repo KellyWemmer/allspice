@@ -54,7 +54,7 @@ namespace allspice.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Favorite");
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("allspice.Models.Ingredient", b =>

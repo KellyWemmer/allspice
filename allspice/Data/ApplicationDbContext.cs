@@ -10,6 +10,8 @@ namespace allspice.Data
         public DbSet<Step> Steps {get; set;}
         public DbSet<Ingredient> Ingredients {get; set;}
 
+        public DbSet<Favorite> Favorites {get; set;}
+
         //required constructor
        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
        {
