@@ -1,7 +1,7 @@
 <template>
     <div class="selectable img-card" @click="setActiveRecipeModal()">
         <img class="img-fluid mb-3 mt-3 rounded" :src="recipe?.picture" alt="">
-        <div class="row img-category text-white d-flex aligns-items-center text-center">
+        <div class="row img-category text-white aligns-items-center text-center">
             <p class="text-category">{{recipe?.category}}</p>
         </div>          
         <div class="row text-white img-title d-flex">

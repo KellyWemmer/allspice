@@ -20,8 +20,8 @@ namespace allspice.Services
 
         internal string Delete(int recipeId, string accountId)
         {
-            _favoritesRepo.Delete(recipeId, accountId);
-            return "Favorite was deleted";
+           return _favoritesRepo.Delete(recipeId, accountId);
+        
 
         }
     }

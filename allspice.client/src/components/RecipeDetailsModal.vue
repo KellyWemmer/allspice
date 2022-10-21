@@ -19,8 +19,10 @@
                                 <b>{{recipe?.title}}</b>
                             <div class="col-5 category-text text-center">
                                 <span class="m-3">{{recipe?.category}}</span>
-                            </div>    
-                                
+                            </div>
+                            <div>
+                                <i class="col-2 selectable d-flex mdi mdi-heart-plus-outline material-icons" @click="addToFavorites()" title="Add to Favorites"></i>    
+                            </div>                                
                             </div>
                         <div class="row">
                             <div class="col-12 mt-2 mb-1">
@@ -89,6 +91,9 @@ export default {
 </script>
 <style>
 
+.material-icons {
+    font-size: 22px;   
+}
 .category-text {
     border-radius: 30px;
     background: rgba(57, 56, 56, 0.4);
