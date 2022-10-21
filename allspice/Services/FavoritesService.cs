@@ -17,6 +17,13 @@ namespace allspice.Services
         {
              return _favoritesRepo.Create(newFavorite);              
         }
+
+        internal string Delete(int recipeId, string accountId)
+        {
+            _favoritesRepo.Delete(recipeId, accountId);
+            return "Favorite was deleted";
+
+        }
     }
 
 }

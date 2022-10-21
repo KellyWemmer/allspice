@@ -47,7 +47,23 @@ namespace allspice.Controllers
             }
         }
 
-        
+        [HttpDelete("{recipeId}")]
+        [Authorize]
+
+        public async Task<ActionResult<string>> Delete(int recipeId)
+        {
+            try 
+            {
+              Account user = await HttpContext.GetUserInfoAsync<Account>();
+
+              string message = _favoritesService.Delete(recipeId, user.Id);
+              return Ok(message);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }        
         
     }
 }

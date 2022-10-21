@@ -45,10 +45,6 @@ namespace allspice.Repositories //Repositories - how to access your data
                 throw new Exception("Recipe not found");
             }
         }
-
-        internal List<Favorite> GetFavoritesByRecipeId(int recipeId)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

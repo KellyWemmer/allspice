@@ -37,9 +37,6 @@ namespace allspice.Services
             }
         }
 
-        internal List<Favorite> GetFavoritesByRecipeId(int recipeId)
-        {
-            return _recipesRepo.GetFavoritesByRecipeId(recipeId);
-        }
+        
     }
 }
