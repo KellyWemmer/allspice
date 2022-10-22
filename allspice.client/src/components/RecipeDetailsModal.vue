@@ -21,7 +21,7 @@
                                 <span class="m-3">{{recipe?.category}}</span>
                             </div>
                             <div>
-                                <i class="col-2 selectable d-flex mdi mdi-heart-plus-outline material-icons" @click="addToFavorites()" title="Add to Favorites"></i>    
+                                <i class="col-2 selectable d-flex mdi mdi-heart-plus-outline material-icons" @click="createFavorite(recipe.id)" title="Add to Favorites"></i>    
                             </div>                                
                             </div>
                         <div class="row">
@@ -61,8 +61,10 @@ import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState';
 import { router } from '../router';
 import { recipesService } from '../services/RecipesService';
+import {favoritesService} from '../services/FavoritesService';
 import Pop from '../utils/Pop';
 import RecipeStepsCard from './RecipeStepsCard.vue';
+import { logger } from '../utils/Logger';
 
 export default {
     //Modal sends information to cards
@@ -70,6 +72,7 @@ export default {
         return {
             recipe: computed(() => AppState.activeRecipe),
             user: computed(()=> AppState.user),
+            myFavorites: computed(()=> AppState.myFavorites),
 
             async deleteRecipe(id) {
                 try {
@@ -82,6 +85,18 @@ export default {
                   logger.error(error)
                   Pop.toast(error.message, 'error')
                   router.push({name: 'Home'})
+                }
+            },
+
+            async createFavorite(recipeId) {
+                try {
+                  //from model  
+                  let newFavorite = {recipeId: recipeId, accountId: AppState.user.id}
+                  await favoritesService.create(newFavorite)
+                  Pop.toast("This has been added to your favorites")
+                } catch (error) {
+                  logger.error(error)
+                  Pop.toast(error.message, 'error')
                 }
             }
         };
