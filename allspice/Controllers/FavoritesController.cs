@@ -55,7 +55,9 @@ namespace allspice.Controllers
             try 
             {
               Account user = await HttpContext.GetUserInfoAsync<Account>();
-
+              if(user == null){
+                return BadRequest("You are not logged in.");
+              }
               string message = _favoritesService.Delete(recipeId, user.Id);
               return Ok(message);
             }

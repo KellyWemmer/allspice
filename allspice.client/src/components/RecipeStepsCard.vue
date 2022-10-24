@@ -41,7 +41,7 @@ export default {
             required:true
         },
         stepsData: { type: Object, 
-            required: true, default: {}
+            required: false, default: {}
         }
     },
     setup(props) {
