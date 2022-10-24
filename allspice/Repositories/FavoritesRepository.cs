@@ -32,5 +32,11 @@ namespace allspice.Repositories
 
                
         }
+
+        //Checks to see if there is a favorite for this recipe/account, if not, it will return null
+        internal Favorite GetFavoriteIfExists(int recipeId, string accountId)
+        {
+            return _context.Favorites.FirstOrDefault(f => f.RecipeId == recipeId && f.AccountId == accountId);
+        }
     }
 }

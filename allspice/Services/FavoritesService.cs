@@ -24,6 +24,11 @@ namespace allspice.Services
         
 
         }
+
+        internal Favorite GetFavoriteIfExists(int recipeId, string accountId)
+        {
+            return _favoritesRepo.GetFavoriteIfExists(recipeId, accountId);
+        }
     }
 
 }

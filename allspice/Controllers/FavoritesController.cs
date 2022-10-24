@@ -63,7 +63,27 @@ namespace allspice.Controllers
             {
               return BadRequest(e.Message);
             }
-        }        
+        } 
+
+        [HttpGet("{recipeId}")]
+        [Authorize]
+
+        public async Task<ActionResult<Favorite>> GetFavoriteIfExists(int recipeId) 
+        {
+            try 
+            {
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                if( user == null) {
+                    return BadRequest("You are not the logged in user.");
+                }
+                Favorite favorite = _favoritesService.GetFavoriteIfExists(recipeId, user.Id);
+                return Ok(favorite);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }       
         
     }
 }

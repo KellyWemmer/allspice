@@ -8,6 +8,7 @@ class FavoritesService {
         logger.log('new favorite', res.data)
         AppState.myFavorites.push(res.data)
     }
+
 }
 
 export const favoritesService = new FavoritesService();

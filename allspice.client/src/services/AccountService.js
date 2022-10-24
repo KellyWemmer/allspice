@@ -23,6 +23,10 @@ class AccountService {
     logger.log('My account favorites', res.data)
     AppState.myFavorites = res.data
   }
+
+//   async getFavoriteIfExists(recipeId, accountId){
+//     const res = await api.get()
+// }
 }
 
 export const accountService = new AccountService()
