@@ -22,18 +22,25 @@ import { ingredientsService} from '../services/IngredientsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import RecipeDetailsModal from './RecipeDetailsModal.vue';
+import { favoritesService } from '../services/FavoritesService';
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState';
 
 export default {
     props: { 
         recipe: { type: Object, required: true }},
+
     setup(props) {
         return {
+            favorite: computed(()=> AppState.favorite),
+
             async setActiveRecipeModal() {  //get steps and ingredients when modal is rendered.              
                 try {
                     Modal.getOrCreateInstance(document.getElementById("recipe-modal")).toggle();
                     await recipesService.getRecipeById(props.recipe.id);
                     await stepsService.getStepsByRecipeId(props.recipe.id);
                     await ingredientsService.getIngredientsByRecipeId(props.recipe.id);
+                    await favoritesService.getFavoriteIfExists(props.recipe.id);
                 }
                 catch (error) {
                     logger.error("Set active recipe", error);

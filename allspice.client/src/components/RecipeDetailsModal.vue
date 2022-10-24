@@ -20,8 +20,13 @@
                             <div class="col-5 category-text text-center">
                                 <span class="m-3">{{recipe?.category}}</span>
                             </div>
-                            <div >
-                                <i class="col-2 selectable d-flex mdi mdi-heart-plus-outline material-icons" @click="createFavorite(recipe.id)" title="Add to Favorites"></i>    
+                            <!-- There IS a favorite on the recipe -->
+                            <div v-if="favorite != null">
+                                <i class="col-2 d-flex mdi mdi-heart material-icons" title="Favorite"></i>                                
+                            </div>
+                            <!-- There IS NOT a favorite on this recipe -->
+                            <div v-if="favorite == null">                                
+                                <i class="col-2 selectable d-flex mdi mdi-heart-plus-outline material-icons" @click="createFavorite(recipe.id)" title="Add to Favorites"></i>
                             </div>                                
                             </div>
                         <div class="row">
@@ -65,14 +70,17 @@ import {favoritesService} from '../services/FavoritesService';
 import Pop from '../utils/Pop';
 import RecipeStepsCard from './RecipeStepsCard.vue';
 import { logger } from '../utils/Logger';
+import { onMounted, watch } from 'vue';
 
 export default {
     //Modal sends information to cards
-    setup() {
+    setup() {       
+        watch(()=> AppState.favorite)
         return {
             recipe: computed(() => AppState.activeRecipe),
             user: computed(()=> AppState.user),
             myFavorites: computed(()=> AppState.myFavorites),
+            favorite: computed(()=> AppState.favorite),
 
             async deleteRecipe(id) {
                 try {
@@ -99,6 +107,8 @@ export default {
                   Pop.toast(error.message, 'error')
                 }
             }
+
+            
         };
     },
     components: { RecipeStepsCard }
