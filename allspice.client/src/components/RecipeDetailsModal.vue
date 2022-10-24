@@ -20,7 +20,7 @@
                             <div class="col-5 category-text text-center">
                                 <span class="m-3">{{recipe?.category}}</span>
                             </div>
-                            <div>
+                            <div >
                                 <i class="col-2 selectable d-flex mdi mdi-heart-plus-outline material-icons" @click="createFavorite(recipe.id)" title="Add to Favorites"></i>    
                             </div>                                
                             </div>
