@@ -10,12 +10,12 @@
             <form @submit.prevent="handleSubmit">
                 <div class="row">
                     <div class="col-3 mt-2 mb-2">                    
-                        <input required v-model="editable.position" type="number" class="form-control" id="step-number" aria-describedby="stepHelp" placeholder="#">
+                        <input required v-model="editable.position" type="number" class="form-control input-field" id="step-number" aria-describedby="stepHelp" placeholder="#">
                     </div>
                     <div class="col-7 mt-2 mb-2">                   
-                        <input required v-model="editable.body" type="text" class="form-control" id="step-body" aria-describedby="stepHelp" placeholder="Instructions">
+                        <input required v-model="editable.body" type="text" class="form-control input-field" id="step-body" aria-describedby="stepHelp" placeholder="Instructions">
                     </div> 
-                    <div class="col-2 mt-3 mb-2">
+                    <div class="col-2 mt-2 mb-3">
                         <button type="submit" class="mdi mdi-plus"></button>                   
                     </div>               
                 </div>

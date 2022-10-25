@@ -31,7 +31,6 @@ import {recipesService} from '../services/RecipesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import NewRecipeModal from '../components/NewRecipeModal.vue';
-import { useRoute } from 'vue-router';
 
 
 export default {
@@ -61,18 +60,6 @@ export default {
 </script>
 <style scoped lang="scss">
 
-#banner-image{
-  width: 100%;
-  background-image: url("https://images.unsplash.com/photo-1597528662465-55ece5734101?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80");
-  height: 275px;
-  background-position: center;
-  background-size: cover;
-  padding: 0px;
-
-  .text-shadow{
-    text-shadow: 3px 2px #040404;
-  }  
-}
   .add-button {
     font-size: 80px;
   }

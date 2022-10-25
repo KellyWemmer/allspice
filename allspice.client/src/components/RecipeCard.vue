@@ -40,7 +40,7 @@ export default {
                     await recipesService.getRecipeById(props.recipe.id);
                     await stepsService.getStepsByRecipeId(props.recipe.id);
                     await ingredientsService.getIngredientsByRecipeId(props.recipe.id);
-                    await favoritesService.getFavoriteIfExists(props.recipe.id);
+                    await favoritesService.getFavoriteIfExists(props.recipe.id);         
                 }
                 catch (error) {
                     logger.error("Set active recipe", error);

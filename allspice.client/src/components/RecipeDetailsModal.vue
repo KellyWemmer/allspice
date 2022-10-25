@@ -20,11 +20,11 @@
                             <div class="col-5 category-text text-center">
                                 <span class="m-3">{{recipe?.category}}</span>
                             </div>
-                            <!-- There IS a favorite on the recipe -->
+                            <!-- This recipe IS already favorited -->
                             <div v-if="favorite != null">
-                                <i class="col-2 d-flex mdi mdi-heart material-icons" title="Favorite"></i>                                
+                                <i class="col-2 selectable d-flex mdi mdi-heart-remove material-icons close" @click="deleteFavorite(recipe.id)" title="Remove Favorite" data-bs-dismiss="modal" aria-label="Close"></i>                                
                             </div>
-                            <!-- There IS NOT a favorite on this recipe -->
+                            <!-- This recipe is NOT already favorited -->
                             <div v-if="favorite == null">                                
                                 <i class="col-2 selectable d-flex mdi mdi-heart-plus-outline material-icons" @click="createFavorite(recipe.id)" title="Add to Favorites"></i>
                             </div>                                
@@ -75,12 +75,12 @@ import { onMounted, watch } from 'vue';
 export default {
     //Modal sends information to cards
     setup() {       
-        watch(()=> AppState.favorite)
         return {
             recipe: computed(() => AppState.activeRecipe),
             user: computed(()=> AppState.user),
             myFavorites: computed(()=> AppState.myFavorites),
             favorite: computed(()=> AppState.favorite),
+            user: computed(()=> AppState.user),
 
             async deleteRecipe(id) {
                 try {
@@ -102,6 +102,17 @@ export default {
                   let newFavorite = {recipeId: recipeId, accountId: AppState.user.id}
                   await favoritesService.create(newFavorite)
                   Pop.toast("This has been added to your favorites")
+                } catch (error) {
+                  logger.error(error)
+                  Pop.toast(error.message, 'error')
+                }
+            },
+
+            async deleteFavorite(recipeId) {
+                try {
+                    await favoritesService.deleteFavorite(recipeId)  
+                    Pop.toast("This Favorite has been removed.")  
+                    router.push({ name: "Home"})           
                 } catch (error) {
                   logger.error(error)
                   Pop.toast(error.message, 'error')

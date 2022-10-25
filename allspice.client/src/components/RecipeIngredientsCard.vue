@@ -12,12 +12,12 @@
                 <div class="row">
                     <!-- TODO increment step number automatically -->
                     <div class="col-3 mt-2 mb-2">                    
-                        <input required v-model="editable.quantity" type="text" class="form-control" id="ingredient-quantity" aria-describedby="ingredientHelp" placeholder="Qty">
+                        <input required v-model="editable.quantity" type="text" class="form-control input-field" id="ingredient-quantity" aria-describedby="ingredientHelp" placeholder="Qty">
                     </div>
                     <div class="col-7 mt-2 mb-2">                   
-                        <input required v-model="editable.name" type="text" class="form-control" id="ingredient-name" aria-describedby="ingredientHelp" placeholder="Ingredient Name">
+                        <input required v-model="editable.name" type="text" class="form-control input-field" id="ingredient-name" aria-describedby="ingredientHelp" placeholder="Ingredient Name">
                     </div> 
-                    <div class="col-2 mt-3 mb-2">
+                    <div class="col-2 mt-2 mb-3">
                         <button class="mdi mdi-plus"></button>                   
                     </div>               
                 </div>
@@ -113,4 +113,13 @@ export default {
 };
 </script>
 <style>
+
+.list-group-item {
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+.input-field{
+    max-height: 30px;
+}
 </style>
