@@ -17,10 +17,5 @@ namespace allspice.Data
        {
         
        }
-       //required method
-       protected override void OnModelCreating(ModelBuilder builder) 
-       {
-            base.OnModelCreating(builder);
-       }
     }
 }
