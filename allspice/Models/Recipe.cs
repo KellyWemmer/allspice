@@ -16,11 +16,11 @@ namespace allspice.Models
         [ForeignKey("CreatorId")]
         public Account Creator { get; set; }//Added to access the creator object
         [InverseProperty("Recipe")]
-        public ICollection<Step> Steps { get; set; } //sets one to many relationship
+        public ICollection<Step> Steps { get; set; } //sets the many in the one-many relationship
         [InverseProperty("Recipe")]
-        public ICollection<Ingredient> Ingredients { get; set; }
+        public ICollection<Ingredient> Ingredients { get; set; } //sets the many in the one-many relationship
 
-        public ICollection<Favorite> Favorites { get; set; }//ICollection means multiple favorites
+        public ICollection<Favorite> Favorites { get; set; }//ICollection sets a many in the many-many relationship
 
     }
 
