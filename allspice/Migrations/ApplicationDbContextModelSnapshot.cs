@@ -33,7 +33,7 @@ namespace allspice.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("allspice.Models.Favorite", b =>
@@ -54,7 +54,7 @@ namespace allspice.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Favorites");
+                    b.ToTable("Favorites", (string)null);
                 });
 
             modelBuilder.Entity("allspice.Models.Ingredient", b =>
@@ -76,7 +76,7 @@ namespace allspice.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("allspice.Models.Recipe", b =>
@@ -104,7 +104,7 @@ namespace allspice.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("allspice.Models.Step", b =>
@@ -126,7 +126,7 @@ namespace allspice.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Steps");
+                    b.ToTable("Steps", (string)null);
                 });
 
             modelBuilder.Entity("allspice.Models.Favorite", b =>
